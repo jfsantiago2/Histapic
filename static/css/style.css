@@ -1,0 +1,45 @@
+.navbar {
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+    min-height: 70px;
+    color: #000;
+}
+
+.navbar-inverse .navbar-brand{
+    height: 70px;
+    padding: 25px 25px;
+    font-size: 35px;
+    color: #000;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  background-color: transparent;
+  color: #999999;
+}
+
+
+/*Navigation container*/
+
+.navbar-nav>li>a{
+    padding: 25px 25px;
+    font-size: 16px;
+}
+
+.navbar-inverse .navbar-nav>li>a{
+    color: #000;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover,
+.navbar-inverse .navbar-nav>li>a:focus{
+    background-color: transparent;
+    color: #999999;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+    background-color: #FFFF00;
+}
+
+.navbar-inverse .navbar-toggle{
+    border-color: #F8F8F8;;
+}
