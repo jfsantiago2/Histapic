@@ -1,3 +1,4 @@
+/*Principal navigation container*/
 .navbar {
     background-color: #F8F8F8;
     border-color: #E7E7E7;
@@ -5,6 +6,7 @@
     color: #000;
 }
 
+/*Logo container*/
 .navbar-inverse .navbar-brand{
     height: 70px;
     padding: 25px 25px;
@@ -18,9 +20,7 @@
   color: #999999;
 }
 
-
-/*Navigation container*/
-
+/*Menu container*/
 .navbar-nav>li>a{
     padding: 25px 25px;
     font-size: 16px;
@@ -36,10 +36,133 @@
     color: #999999;
 }
 
+/*Responsive button design*/
+.navbar-inverse .navbar-toggle{
+    border-color: #F8F8F8;
+    background-color: #0f0f0f;
+}
 .navbar-inverse .navbar-toggle:hover {
-    background-color: #FFFF00;
+    background-color: #999999;
 }
 
-.navbar-inverse .navbar-toggle{
-    border-color: #F8F8F8;;
+/*Submenu container*/
+.navbar-inverse .navbar-nav>.open>a{
+    color: #000;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover{
+    background-color: transparent;
+    color: #999999;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    font-size: 15px;
+    color: #000;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a{
+    color: #000;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus,
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: #999999;
+}
+
+/*Profile image container*/
+
+.jumbotron{
+    background-color: #fff;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.custom-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+.profile-image{
+    padding: 0 50px 0 50px;
+    align-self: center;
+
+}
+
+.profile-image img{
+    width:200px;
+    height:200px;
+}
+
+.profile{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 50px 0 50px;
+}
+
+.autor-title{
+    font-size: 20px;
+    color: #1b6d85;
+    padding-bottom: 18px;
+
+}
+
+.profile-description{
+    padding: 25px 50px 0 50px;
+    width: 325px;
+}
+
+.profile-description p{
+    font-size: 16px;
+}
+
+.profile-data{
+    padding: 25px 50px 0 65px;
+    width: 325px;
+
+}
+
+.profile-data p,
+.profile-data li{
+    text-align: left;
+    font-size: 16px;
+}
+
+
+/* MEDIA QUERIES: Large and single devices*/
+@media only screen and (max-width: 1200px) {
+    .autor-title{
+        font-size: 16px;
+        color: #1b6d85;
+        padding-bottom: 18px;
+
+}
+
+.profile{
+    padding: 0 40px 0 40px;
+    flex-direction: column;
+}
+
+.profile-description{
+    padding: 20px 40px 0 40px;
+    width: 290px;
+}
+
+.profile-description p{
+    font-size: 14px;
+}
+
+.profile-data{
+    padding: 20px 40px 0 80px;
+    width: 290px;
+
+}
+
 }

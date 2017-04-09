@@ -1,37 +1,43 @@
 {% extends "skeleton.html" %}
 {% block mainContainer %}
 
+<div class="jumbotron">
+    <div class="container text-center">
+      <div class="custom-container">
+        <div class="profile-image">
+          <img src="static/images/profile1.jpg" class="img-rounded"  alt="Image">
+        </div>
+        <div class="profile">
+          <div class="profile-description">
+            <div class="autor-title">
+              Francis Mendes
+              <button type="button" class="btn btn-primary">Follow</button>
+            </div>
+            <p>"Hi, I´m from Spain and my idol it´s Justin Bieber, also I follow Disney Channel actors, like Phineas"</p>
+          </div>
+          <div class="profile-data">
+            <p>Tags:</p>
+            <ul>
+              <li>Culture</li>
+            </ul>
+            <p>Followers: -9</p>
+            <p>Follow: 1</p>
+
+           </div>
+        </div>
+      </div>
+    </div>
+</div>
 
 <div class="container-fluid bg-3 text-center">
-  <h3>Some of my Work</h3><br>
-  <div class="row">
-    <div class="col-sm-3">
-      <p>Some text..</p>
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-3">
-      <p>Some text..</p>
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-3">
-      <p>Some text..</p>
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-3">
-      <p>Some text..</p>
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-    </div>
-  </div>
-</div><br>
-
-<ul class="pagination">
-  <li><a href="#">&laquo;</a></li>
-  <li><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-  <li><a href="#">&raquo;</a></li>
-</ul>
+    <h3>Lastest photos</h3><br>
+      <div class="row">
+        {% for x in range(0,4) %}
+        <div class="col-sm-3">
+          <p>Some text..</p>
+          <img src="https://placehold.it/350x350?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+        </div>
+        {% endfor %}
+</div>
 
 {% endblock %}
