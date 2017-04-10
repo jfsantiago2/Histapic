@@ -5,39 +5,47 @@
     <div class="container text-center">
       <div class="custom-container">
         <div class="profile-image">
-          <img src="static/images/profile1.jpg" class="img-rounded"  alt="Image">
+          <img src="static/images/profile1.jpg" class="img-circle"  alt="Image">
         </div>
         <div class="profile">
           <div class="profile-description">
             <div class="autor-title">
-              Francis Mendes
+              <div class="name">{{user_name}}</div>
               <button type="button" class="btn btn-primary">Follow</button>
             </div>
             <p>"Hi, I´m from Spain and my idol it´s Justin Bieber, also I follow Disney Channel actors, like Phineas"</p>
+            <div class="statistic">
+              <p>Followers: 9</p>
+              <p>Follow: 1</p>
+            </div>
           </div>
           <div class="profile-data">
             <p>Tags:</p>
             <ul>
-              <li>Culture</li>
+              <li><button type="button" class="btn btn-default">Culture</button></li>
+              <li><button type="button" class="btn btn-default">Videogames</button></li>
+              <li><button type="button" class="btn btn-default">Others</button></li>
             </ul>
-            <p>Followers: -9</p>
-            <p>Follow: 1</p>
-
+            <div class="statistic">
+              <p>Publications: 19</p>
+             </div>
            </div>
         </div>
       </div>
     </div>
 </div>
 
-<div class="container-fluid bg-3 text-center">
+<div class="jumbotron">
+  <div class="container text-center">
     <h3>Lastest photos</h3><br>
       <div class="row">
         {% for x in range(0,4) %}
         <div class="col-sm-3">
           <p>Some text..</p>
-          <img src="https://placehold.it/350x350?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+          <img src="static/images/fondo.jpg" class="img-responsive" style="width:100%" alt="Image">
         </div>
         {% endfor %}
+      </div>
+    </div>
 </div>
-
 {% endblock %}
