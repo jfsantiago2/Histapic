@@ -1,7 +1,7 @@
 import webapp2
-import time
 from webapp2_extras import jinja2
 from google.appengine.api import users
+from model.models import People
 from controller.menuHandler import MainMenuHandler
 from controller.registerHandler import RegisterHandler
 from controller.errorHandler import ErrorHandler
@@ -12,7 +12,17 @@ class MainHandler(webapp2.RequestHandler):
         jinja = jinja2.get_jinja2(app=self.app)
         user = users.get_current_user()
 
-        if user:
+        def checkEmail(user):
+            stored_user = People.query(People.email == user.email())
+            toret = True
+            if stored_user.count() == 0:
+                toret = False
+
+            return toret
+
+
+
+        if user and checkEmail(user):
             self.redirect("/main")
         else:
             labels = {
