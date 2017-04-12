@@ -2,7 +2,9 @@ import webapp2
 import time
 from webapp2_extras import jinja2
 from google.appengine.api import users
-from controller.controller import MainMenuHandler
+from controller.menuHandler import MainMenuHandler
+from controller.registerHandler import RegisterHandler
+from controller.errorHandler import ErrorHandler
 
 class MainHandler(webapp2.RequestHandler):
 
@@ -19,6 +21,9 @@ class MainHandler(webapp2.RequestHandler):
             self.response.write(jinja.render_template("register.html", **labels))
 
 app = webapp2.WSGIApplication([
+
     ("/", MainHandler),
-    ("/main", MainMenuHandler)
-], debug=True)
+    ("/main", MainMenuHandler),
+    ("/register", RegisterHandler),
+    ("/error", ErrorHandler),
+    ], debug=True)
