@@ -31,14 +31,14 @@ class RegisterHandler(webapp2.RequestHandler):
             avatar = self.request.get('img')
 
         except:
-            self.redirect("/error?msg=error ocurred")
+            self.redirect("/error?msg=Error ocurred")
             return
 
 
         if(checkEmail(email)):
-            self.redirect("/error?msg=user already exist")
+            self.redirect("/error?msg=User already exist")
             return
-        
+
         if avatar == "":
             avatar = None
 
