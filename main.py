@@ -1,7 +1,7 @@
 import webapp2
 from webapp2_extras import jinja2
 from google.appengine.api import users
-from model.models import People
+from model.peopleModel import People
 from controller.menuHandler import MainMenuHandler
 from controller.registerHandler import RegisterHandler
 from controller.errorHandler import ErrorHandler

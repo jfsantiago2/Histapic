@@ -2,7 +2,8 @@ import time
 import webapp2
 from webapp2_extras import jinja2
 from google.appengine.api import users
-from model.models import User
+from model.userModel import User
+from model.peopleModel import People
 
 class MainMenuHandler(webapp2.RequestHandler):
     def get(self):
@@ -22,10 +23,18 @@ class MainMenuHandler(webapp2.RequestHandler):
                 img.put()
                 time.sleep(1)
 
-            people = User.query().order(User.name)
+            people = People.query(People.email == name_info)
+
+            for x in people:
+                nick = "@"+x.nick
+                description = x.description
+                avatar = x.avatar
+
             labels = {
                 "user_logout": users.create_logout_url("/"),
-                "user_name": name_info
+                "nick_name": nick,
+                "description": description,
+                "avatar": avatar
             }
             self.response.write(jinja.render_template("index.html", **labels))
 

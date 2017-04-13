@@ -5,15 +5,15 @@
     <div class="container text-center">
       <div class="custom-container">
         <div class="profile-image">
-          <img src="static/images/profile1.jpg" class="img-circle"  alt="Image">
+          <img src="{{ avatar }}" class="img-circle"  alt="Image">
         </div>
         <div class="profile">
           <div class="profile-description">
             <div class="autor-title">
-              <div class="name">{{user_name}}</div>
+              <div class="name">{{nick_name}}</div>
               <button type="button" class="btn btn-primary">Follow</button>
             </div>
-            <p>"Hi, I´m from Spain and my idol it´s Justin Bieber, also I follow Disney Channel actors, like Phineas"</p>
+            <p>"{{ description }}"</p>
             <div class="statistic">
               <p>Followers: 9</p>
               <p>Follow: 1</p>

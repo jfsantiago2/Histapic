@@ -3,7 +3,7 @@ import webapp2
 
 from datetime import datetime
 from webapp2_extras import jinja2
-from model.models import People
+from model.peopleModel import People
 from google.appengine.api import users
 
 class RegisterHandler(webapp2.RequestHandler):
@@ -27,6 +27,8 @@ class RegisterHandler(webapp2.RequestHandler):
             name = self.request.get('name')
             surname = self.request.get('surname')
             date = datetime.strptime(self.request.get('date'), '%Y-%m-%d')
+            description = self.request.get('description')
+            avatar = self.request.get('img')
 
         except:
             self.redirect("/error?msg=error ocurred")
@@ -36,13 +38,17 @@ class RegisterHandler(webapp2.RequestHandler):
         if(checkEmail(email)):
             self.redirect("/error?msg=user already exist")
             return
-
+        
+        if avatar == "":
+            avatar = None
 
         people = People(nick = nick_name,
                         email = email,
                         name = name,
                         surname = surname,
-                        date =  date)
+                        date =  date,
+                        description = description,
+                        avatar = avatar)
         people.put()
         time.sleep(1)
 
