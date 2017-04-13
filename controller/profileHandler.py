@@ -6,7 +6,15 @@ from webapp2_extras import jinja2
 from model.peopleModel import People
 from google.appengine.api import users
 
-class RegisterHandler(webapp2.RequestHandler):
+class ProfileHandler(webapp2.RequestHandler):
+
+    def get(self):
+        jinja = jinja2.get_jinja2(app=self.app)
+        labels = {
+            "user_logout": users.create_logout_url("/")
+        }
+        self.response.write(jinja.render_template("profile.html", **labels))
+
 
     def post(self):
         jinja = jinja2.get_jinja2(app=self.app)
@@ -31,18 +39,18 @@ class RegisterHandler(webapp2.RequestHandler):
             avatar = self.request.get('img')
 
         except:
-            self.redirect("/error?msg=error ocurred")
+            self.redirect("/error?msg=Error ocurred")
             return
 
 
         if(checkEmail(email)):
-            self.redirect("/error?msg=user already exist")
+            self.redirect("/error?msg=User already exist")
             return
 
         if avatar == "":
             avatar = None
 
-        people = People(nickname = nick_name,
+        people = People(nick = nick_name,
                         email = email,
                         name = name,
                         surname = surname,

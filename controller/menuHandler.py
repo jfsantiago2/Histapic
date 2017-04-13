@@ -23,10 +23,15 @@ class MainMenuHandler(webapp2.RequestHandler):
                 img.put()
                 time.sleep(1)
 
+
+            if "@" not in name_info:
+                name_info= name_info+"@gmail.com"
+
             people = People.query(People.email == name_info)
+            print(people)
 
             for x in people:
-                nick = "@"+x.nick
+                nick = x.nickname
                 description = x.description
                 avatar = x.avatar
 
@@ -37,5 +42,3 @@ class MainMenuHandler(webapp2.RequestHandler):
                 "avatar": avatar
             }
             self.response.write(jinja.render_template("index.html", **labels))
-
-

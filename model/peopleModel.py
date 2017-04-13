@@ -1,7 +1,7 @@
 from google.appengine.ext import ndb
 
 class People(ndb.Model):
-    nick = ndb.StringProperty(required=True)
+    nickname = ndb.StringProperty(required=True)
     email = ndb.StringProperty(required=True)
     name = ndb.StringProperty(required=True)
     surname = ndb.StringProperty(required=True)
