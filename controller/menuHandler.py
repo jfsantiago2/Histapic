@@ -27,18 +27,10 @@ class MainMenuHandler(webapp2.RequestHandler):
             if "@" not in name_info:
                 name_info= name_info+"@gmail.com"
 
-            people = People.query(People.email == name_info)
-            print(people)
-
-            for x in people:
-                nick = x.nickname
-                description = x.description
-                avatar = x.avatar
+            user_info = People.query(People.email == name_info)
 
             labels = {
                 "user_logout": users.create_logout_url("/"),
-                "nick_name": nick,
-                "description": description,
-                "avatar": avatar
+                "user_info": user_info
             }
             self.response.write(jinja.render_template("index.html", **labels))

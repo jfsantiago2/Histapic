@@ -18,6 +18,7 @@ class ErrorHandler(webapp2.RequestHandler):
 
         template_values = {
             "error_msg": msg,
+            "handler" : self.request.GET['handler']
         }
 
         self.response.write(jinja.render_template("error.html", **template_values))

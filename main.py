@@ -4,6 +4,7 @@ from google.appengine.api import users
 from model.peopleModel import People
 from controller.menuHandler import MainMenuHandler
 from controller.registerHandler import RegisterHandler
+from controller.profileHandler import ProfileHandler
 from controller.errorHandler import ErrorHandler
 
 class MainHandler(webapp2.RequestHandler):
@@ -20,8 +21,6 @@ class MainHandler(webapp2.RequestHandler):
 
             return toret
 
-
-
         if user and checkEmail(user):
             self.redirect("/main")
         else:
@@ -35,5 +34,6 @@ app = webapp2.WSGIApplication([
     ("/", MainHandler),
     ("/main", MainMenuHandler),
     ("/register", RegisterHandler),
+    ("/profile", ProfileHandler),
     ("/error", ErrorHandler),
     ], debug=True)

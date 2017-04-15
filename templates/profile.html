@@ -1,4 +1,48 @@
 {% extends "skeleton.html" %}
 {% block mainContainer %}
 
+<div class="container">
+		<div class="row">
+			<div class="span12">
+				<div class="" id="loginModal">
+					<div class="modal-body">
+                        <div class="well">
+                            {% for user in user_info %}
+                          <form action="/profile?id={{user.key.urlsafe()}}" method="post" role="form" enctype="multipart/form-data">
+                            <!-- Nickname -->
+                            <label for="nick_name" class="custom-label">Nickname:</label>
+                            <input type="text" id="nick_name" name="nick_name" value="{{ user.nickname }}" class="form-control custom-input" placeholder="Default_nick" required autofocus>
+                            <!-- Email -->
+                            <label for="mail" >Email address:</label>
+                            <input type="email" name="email" id="mail" value="{{ user.email }}" class="form-control custom-input" placeholder="example@example.com" required autofocus>
+                            <!-- Name -->
+                            <label for="name" >Name:</label>
+                            <input type="text" name="name" id="name" value="{{ user.name }}" class="form-control custom-input" placeholder="First name" required autofocus>
+                            <!-- Surname -->
+                            <label for="surname" >Surname:</label>
+                            <input type="text" name="surname" id="surname" value="{{ user.surname }}" class="form-control custom-input" placeholder="Last name" required autofocus>
+                            <!-- Birth date -->
+                            <label for="datepicker" >Birth date:</label>
+                            <input name="date" class="form-control custom-input" id="datepicker" value="{{ user.date }}" placeholder="16 years old required" required>
+
+
+
+                            <!-- Avatar -->
+                             <label for="img" >Profile image:</label>
+                            <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' id="img" value="{{ avatar }}"></span>
+
+
+                            <!-- Description -->
+                            <label for="description" >Brief description:</label>
+                            <textarea name="description" id="description" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" required>{{ user.description }}</textarea>
+                            <input type="submit" name="submit" class="btn btn-primary btn-block" value="Sign up"/>
+                            {% endfor %}
+                          </form>
+						</div>
+                	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 {% endblock %}
