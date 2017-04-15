@@ -8,3 +8,5 @@ class People(ndb.Model):
     date = ndb.DateProperty(required=True)
     description = ndb.StringProperty(required=True)
     avatar = ndb.BlobProperty()
+    follow = ndb.PickleProperty()
+    publications = ndb.IntegerProperty(default=0)

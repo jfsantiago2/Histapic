@@ -3,7 +3,10 @@ import webapp2
 from webapp2_extras import jinja2
 from google.appengine.api import users
 from model.userModel import User
+from model.imagesModel import Image
 from model.peopleModel import People
+from google.appengine.ext import ndb
+
 
 class MainMenuHandler(webapp2.RequestHandler):
     def get(self):
@@ -23,14 +26,15 @@ class MainMenuHandler(webapp2.RequestHandler):
                 img.put()
                 time.sleep(1)
 
-
-            if "@" not in name_info:
-                name_info= name_info+"@gmail.com"
+                if "@" not in name_info:
+                    name_info= name_info+"@gmail.com"
 
             user_info = People.query(People.email == name_info)
+            imgs = Image.query(Image.autor == user_id)
 
             labels = {
                 "user_logout": users.create_logout_url("/"),
-                "user_info": user_info
+                "user_info": user_info,
+                "images": imgs
             }
             self.response.write(jinja.render_template("index.html", **labels))

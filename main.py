@@ -5,6 +5,7 @@ from model.peopleModel import People
 from controller.menuHandler import MainMenuHandler
 from controller.registerHandler import RegisterHandler
 from controller.profileHandler import ProfileHandler
+from controller.uploadHandler import UploadHandler
 from controller.errorHandler import ErrorHandler
 
 class MainHandler(webapp2.RequestHandler):
@@ -35,5 +36,6 @@ app = webapp2.WSGIApplication([
     ("/main", MainMenuHandler),
     ("/register", RegisterHandler),
     ("/profile", ProfileHandler),
+    ("/upload", UploadHandler),
     ("/error", ErrorHandler),
     ], debug=True)

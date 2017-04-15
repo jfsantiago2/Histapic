@@ -1,4 +1,3 @@
-import string
 import time
 import webapp2
 
@@ -23,11 +22,18 @@ class ProfileHandler(webapp2.RequestHandler):
             if "@" not in email:
                 email= email+"@gmail.com"
 
+            msg =self.request.get("msg")
+
+            if msg == "":
+                msg = None
+
             user_info = People.query(People.email == email)
 
             labels = {
                 "user_info" : user_info,
-                "user_logout": users.create_logout_url("/")
+                "user_logout": users.create_logout_url("/"),
+                "msg": msg
+
             }
 
         self.response.write(jinja.render_template("profile.html", **labels))
@@ -57,10 +63,6 @@ class ProfileHandler(webapp2.RequestHandler):
         except:
             id = None
 
-        if id == None:
-            self.redirect("/error?msg=User was not found")
-            return
-
         user = users.get_current_user()
 
         if user == None:
@@ -70,19 +72,23 @@ class ProfileHandler(webapp2.RequestHandler):
                 user = ndb.Key(urlsafe=id).get()
                 key = user.key
             except:
-                self.redirect("/error?msg=Key does not exist")
+                self.redirect("/error?msg=Key does not exist&handler=/profile")
                 return
 
             email = self.request.get('email')
             nickname = self.request.get('nick_name')
+            image = self.request.get('img')
 
             if (checkEmail(email,key)):
-                self.redirect("/error?msg=User email already exist")
+                self.redirect("/error?msg=User email already exist&handler=/profile")
                 return
 
             if (checkNickname(nickname,key)):
                 self.redirect("/error?msg=User nickname already exist&handler=/profile")
                 return
+
+            if image == "":
+                image = None
 
             user.nickname =self.request.get('nick_name')
             user.email = self.request.get('email')
@@ -90,12 +96,11 @@ class ProfileHandler(webapp2.RequestHandler):
             user.surname = self.request.get('surname')
             user.date = datetime.strptime(self.request.get('date'), '%Y-%m-%d')
             user.description = self.request.get('description')
-            user.avatar = None
-
+            user. avatar = image
             user.put()
             time.sleep(1)
 
-            self.redirect("/profile")
+            self.redirect("/profile?msg=information_message")
 
 
 

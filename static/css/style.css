@@ -235,6 +235,26 @@
 }
 
 
+/*Custom information header on profile page*/
+
+.custom-modal-header-message{
+    animation: colorchange 4s;
+}
+
+@keyframes colorchange
+{
+    50%      {background:greenyellow;}
+    100%    {background:transparent;}
+}
+
+
+/*Gallery*/
+
+.custom-images img{
+
+}
+
+
 /* MEDIA QUERIES: Large and single devices*/
 @media only screen and (max-width: 1200px) {
     .autor-title{

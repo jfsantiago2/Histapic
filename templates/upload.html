@@ -1,0 +1,41 @@
+{% extends "skeleton.html" %}
+{% block mainContainer %}
+
+<div class="container">
+		<div class="row">
+			<div class="span12">
+				<div class="" id="loginModal">
+					<div class="modal-body">
+                        <div class="modal-header">
+                            <h3>Upload an Image</h3>
+                        </div>
+                        <div class="well">
+                            {% for user in user_info %}
+                          <form action="/upload?id={{user.key.urlsafe()}}" method="post" role="form" enctype="multipart/form-data">
+                            {% endfor %}
+                            <!-- Title -->
+                            <label for="title" class="custom-label">Title:</label>
+                            <input type="text" id="title" name="title" class="form-control custom-input" placeholder="Any title" required autofocus>
+                            <!-- Tag -->
+                            <label for="tag" class="custom-label">Tag:</label>
+                            <select class="form-control custom-input" name="tag" id="tag">
+                                {% for tag in tags %}
+                                <option>{{ tag }}</option>
+                                {% endfor %}
+                            </select>
+                            <!-- Comment-->
+                            <label for="comment" >Comment:</label>
+                            <textarea name="comment" id="comment" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" required></textarea>
+                            <!-- Image -->
+                            <label for="img" >Image:</label>
+                            <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' id="img"></span>
+                             <input type="submit" name="submit" class="btn btn-primary btn-block" value="Upload"/>
+                          </form>
+						</div>
+                	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
