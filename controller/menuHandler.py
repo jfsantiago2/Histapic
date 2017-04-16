@@ -12,12 +12,12 @@ class MainMenuHandler(webapp2.RequestHandler):
     def get(self):
         jinja = jinja2.get_jinja2(app=self.app)
         user = users.get_current_user()
-        user_id = user.user_id()
+
 
         if user == None:
-            self.redirect("/")
+            self.redirect(users.create_login_url("/"))
         else:
-
+            user_id = user.user_id()
             user_info = User.query(User.id_user == user_id)
             imgs = Image.query(Image.autor == user_id)
 
@@ -75,4 +75,4 @@ class MainMenuHandler(webapp2.RequestHandler):
         user.put()
         time.sleep(1)
 
-        self.redirect(users.create_login_url("/"))
+        self.redirect("/")

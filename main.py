@@ -13,23 +13,36 @@ class MainHandler(webapp2.RequestHandler):
 
     def get(self):
         jinja = jinja2.get_jinja2(app=self.app)
-        user = users.get_current_user()
 
-        def checkEmail(user):
-            stored_user = User.query(User.email == user.email())
+        def checkEmail(user_name):
+            stored_user = User.query(User.email == user_name)
             toret = True
             if stored_user.count() == 0:
                 toret = False
 
             return toret
 
-        if user and checkEmail(user):
+
+        user = users.get_current_user()
+
+        if user != None:
+            user_name = user.nickname()
+            if "@" not in user_name:
+                user_name = user_name+"@gmail.com"
+
+        if user == None:
+            self.redirect(users.create_login_url("/"))
+        elif(checkEmail(user_name)):
             self.redirect("/main")
         else:
             labels = {
-                "user_login": users.create_login_url("/")
+                    "user_login": users.create_login_url("/"),
+                    "user_name": user_name
             }
             self.response.write(jinja.render_template("register.html", **labels))
+
+
+
 
 app = webapp2.WSGIApplication([
 

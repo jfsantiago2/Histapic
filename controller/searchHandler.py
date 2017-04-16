@@ -13,6 +13,7 @@ class SearchHandler(webapp2.RequestHandler):
         jinja = jinja2.get_jinja2(app=self.app)
         user = users.get_current_user()
 
+
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
@@ -23,8 +24,10 @@ class SearchHandler(webapp2.RequestHandler):
             else:
                 user_info = User.query(User.nickname == search)
 
+
                 for user in user_info:
-                    key = user.id
+                    key = user.id_user
+
 
                 imgs = Image.query(Image.autor == key)
 
