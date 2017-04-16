@@ -3,7 +3,7 @@ import webapp2
 
 from datetime import datetime
 from webapp2_extras import jinja2
-from model.peopleModel import People
+from model.userModel import User
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
@@ -13,21 +13,17 @@ class ProfileHandler(webapp2.RequestHandler):
         jinja = jinja2.get_jinja2(app=self.app)
 
         user = users.get_current_user()
+        user_id = user.user_id()
 
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
-            email = user.nickname()
-
-            if "@" not in email:
-                email= email+"@gmail.com"
-
             msg =self.request.get("msg")
 
             if msg == "":
                 msg = None
 
-            user_info = People.query(People.email == email)
+            user_info = User.query(User.id_user == user_id)
 
             labels = {
                 "user_info" : user_info,
@@ -44,7 +40,7 @@ class ProfileHandler(webapp2.RequestHandler):
 
         def checkEmail(email,key):
             toret = False
-            for p in People.query(People.key!=key):
+            for p in User.query(User.key!=key):
                 if p.email == email:
                     toret = True
 
@@ -52,7 +48,7 @@ class ProfileHandler(webapp2.RequestHandler):
 
         def checkNickname(nickname, key):
             toret = False
-            for p in People.query(People.key != key):
+            for p in User.query(User.key != key):
                 if p.nickname == nickname:
                     toret = True
 

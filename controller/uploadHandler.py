@@ -3,7 +3,7 @@ import time
 
 from webapp2_extras import jinja2
 from google.appengine.api import users
-from model.peopleModel import People
+from model.userModel import User
 from model.imagesModel import Image
 from google.appengine.ext import ndb
 
@@ -21,7 +21,7 @@ class UploadHandler(webapp2.RequestHandler):
             if "@" not in email:
                 email = email+ "@gmail.com"
 
-        user_info = People.query(People.email == email)
+        user_info = User.query(User.email == email)
 
         labels = {
             "tags": ["culture","extreme sports","motor","social","videogames"],

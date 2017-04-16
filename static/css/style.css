@@ -255,6 +255,31 @@
 }
 
 
+/*Custom search*/
+
+.custom-search{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.custom-input-search{
+    padding: 10px;
+}
+
+/*Custom logout*/
+
+.custom-logout{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.custom-logout p{
+padding-left: 3px;
+}
+
+
 /* MEDIA QUERIES: Large and single devices*/
 @media only screen and (max-width: 1200px) {
     .autor-title{
@@ -304,6 +329,18 @@
 
 .profile-data .statistic p{
     font-size: 14px;
+}
+
+}
+
+
+@media only screen and (max-width: 768px) {
+
+.custom-search{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
 }
 
 }

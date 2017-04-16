@@ -36,7 +36,7 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="create">
-                          <form action="/register" method="post" role="form" enctype="multipart/form-data">
+                          <form action="/main" method="post" role="form" enctype="multipart/form-data">
                             <!-- Nickname -->
                             <label for="nick_name" class="custom-label">Nickname:</label>
                             <input type="text" id="nick_name" name="nick_name" class="form-control custom-input" placeholder="Default_nick" required autofocus>
@@ -52,14 +52,9 @@
                             <!-- Birth date -->
                             <label for="datepicker" >Birth date:</label>
                             <input name="date" class="form-control custom-input" id="datepicker" placeholder="16 years old required" required>
-
-
-
                             <!-- Avatar -->
                              <label for="img" >Profile image:</label>
                             <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' id="img"></span>
-
-
                             <!-- Description -->
                             <label for="description" >Brief description:</label>
                             <textarea name="description" id="description" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" required></textarea>
