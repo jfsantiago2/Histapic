@@ -19,7 +19,6 @@
               <button type="button" class="btn btn-primary">Follow</button>
             </div>
             <p>"{{ user.description }}"</p>
-            {% endfor %}
             <div class="statistic">
               <p>Followers: 9</p>
               <p>Follow: 1</p>
@@ -28,12 +27,17 @@
           <div class="profile-data">
             <p>Tags:</p>
             <ul>
-              <li><button type="button" class="btn btn-default">Culture</button></li>
-              <li><button type="button" class="btn btn-default">Videogames</button></li>
-              <li><button type="button" class="btn btn-default">Others</button></li>
+              {% if user.tags %}
+              {% for tag in user.tags.keys() %}
+              <li><button type="button" class="btn btn-default">{{ tag }}</button></li>
+              {% endfor %}
+              {% else %}
+              Not tags yet
+              {% endif %}
             </ul>
             <div class="statistic">
-              <p>Publications: 19</p>
+              <p>Publications: {{ user.publications }}</p>
+              {% endfor %}
              </div>
            </div>
         </div>
@@ -48,10 +52,8 @@
          {% for image in images %}
         <div class="col-sm-3 custom-images">
           <p>{{ image.title }}</p>
-          {% if image.image_info != None %}
-          <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive"  alt="Image">
-          {% else %}
-          <p>No uploaded images</p>
+          {% if image.image_info %}
+          <a href="#"><img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive"  alt="Image"></a>
           {% endif %}
         </div>
         {% endfor %}

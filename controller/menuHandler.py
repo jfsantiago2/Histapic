@@ -26,8 +26,8 @@ class MainMenuHandler(webapp2.RequestHandler):
                 img.put()
                 time.sleep(1)
 
-                if "@" not in name_info:
-                    name_info= name_info+"@gmail.com"
+            if "@" not in name_info:
+                name_info= name_info+"@gmail.com"
 
             user_info = People.query(People.email == name_info)
             imgs = Image.query(Image.autor == user_id)

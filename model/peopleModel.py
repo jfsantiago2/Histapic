@@ -10,3 +10,4 @@ class People(ndb.Model):
     avatar = ndb.BlobProperty()
     follow = ndb.PickleProperty()
     publications = ndb.IntegerProperty(default=0)
+    tags = ndb.PickleProperty(default={})
