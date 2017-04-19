@@ -16,12 +16,22 @@
           <div class="profile-description">
             <div class="autor-title">
               <div class="name">{{ user.nickname }}</div>
-              <button type="button" class="btn btn-primary">Follow</button>
+              {% if current_user %}
+                <a href="/profile" class="btn btn-primary btn-block" role="button">Edit</a>
+              {% elif follow %}
+              <form action="/follow?f" method="post">
+                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Unfollow"/>
+              </form>
+              {% else%}
+              <form action="/follow?u" method="post">
+                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Follow"/>
+              </form>
+              {% endif %}
             </div>
             <p>"{{ user.description }}"</p>
             <div class="statistic">
               <p>Followers: 9</p>
-              <p>Follow: 1</p>
+              <p>Follow: {{ n_follow }}</p>
             </div>
           </div>
           <div class="profile-data">
