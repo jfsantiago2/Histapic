@@ -1,13 +1,14 @@
 import webapp2
+import time
 from webapp2_extras import jinja2
 from google.appengine.api import users
-
-from controller.searchHandler import SearchHandler
 from model.userModel import User
+from controller.searchHandler import SearchHandler
 from controller.menuHandler import MainMenuHandler
 from controller.profileHandler import ProfileHandler
 from controller.uploadHandler import UploadHandler
 from controller.errorHandler import ErrorHandler
+
 
 class MainHandler(webapp2.RequestHandler):
 
@@ -22,24 +23,20 @@ class MainHandler(webapp2.RequestHandler):
 
             return toret
 
-
         user = users.get_current_user()
-
-        if user != None:
-            user_name = user.nickname()
-            if "@" not in user_name:
-                user_name = user_name+"@gmail.com"
 
         if user == None:
             self.redirect(users.create_login_url("/"))
-        elif(checkEmail(user_name)):
+        elif(checkEmail(user.email())):
             self.redirect("/main")
         else:
-            labels = {
-                    "user_login": users.create_login_url("/"),
-                    "user_name": user_name
-            }
-            self.response.write(jinja.render_template("register.html", **labels))
+            user = User(id_user=user.user_id(),
+                        nickname=user.nickname(),
+                        email =user.email())
+            user.put()
+            time.sleep(1)
+
+            self.redirect("/main")
 
 
 

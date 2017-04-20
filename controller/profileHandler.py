@@ -1,7 +1,6 @@
 import time
 import webapp2
 
-from datetime import datetime
 from webapp2_extras import jinja2
 from model.userModel import User
 from google.appengine.api import users
@@ -88,9 +87,6 @@ class ProfileHandler(webapp2.RequestHandler):
 
             user.nickname =self.request.get('nick_name')
             user.email = self.request.get('email')
-            user.name = self.request.get('name')
-            user.surname = self.request.get('surname')
-            user.date = datetime.strptime(self.request.get('date'), '%Y-%m-%d')
             user.description = self.request.get('description')
             user. avatar = image
             user.put()

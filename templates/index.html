@@ -17,20 +17,22 @@
             <div class="autor-title">
               <div class="name">{{ user.nickname }}</div>
               {% if current_user %}
-                <a href="/profile" class="btn btn-primary btn-block" role="button">Edit</a>
+              <form action="/profile" method="get" >
+                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Edit"/>
+              </form>
               {% elif follow %}
-              <form action="/follow?f" method="post">
+              <form action="/follow?u={{user.user_id}}" method="post">
                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Unfollow"/>
               </form>
               {% else%}
-              <form action="/follow?u" method="post">
+              <form action="/follow?f={{user.user_id}}" method="post">
                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Follow"/>
               </form>
               {% endif %}
             </div>
             <p>"{{ user.description }}"</p>
             <div class="statistic">
-              <p>Followers: 9</p>
+              <p>Followers: {{ n_followers }}</p>
               <p>Follow: {{ n_follow }}</p>
             </div>
           </div>

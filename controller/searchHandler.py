@@ -13,10 +13,20 @@ class SearchHandler(webapp2.RequestHandler):
         jinja = jinja2.get_jinja2(app=self.app)
         user = users.get_current_user()
 
+        # comprobar si el current_user sigue al usuario buscado y retornar el numero de seguidores y seguidos
+        def searchFollowers(user):
+            follow = False
+            for x in user_info:
+                n_follow = len(x.follow)
+                n_followers = len(x.followers)
+                if user in x.followers.keys():
+                    follow = True
+            return follow, n_follow, n_followers
+
+
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
-
             search = self.request.get('search')
             if search == "":
                 self.redirect("/")
@@ -31,12 +41,7 @@ class SearchHandler(webapp2.RequestHandler):
                     for user in user_info:
                         key = user.id_user
 
-                    follow = False
-                    print(user)
-                    for x in user_info:
-                        n_follow = len(x.follow)
-                        if user in x.follow.keys():
-                            follow = True
+                    follow, n_follow, n_followers = searchFollowers(user)
 
                     imgs = Image.query(Image.autor == key)
                     labels = {
@@ -45,6 +50,7 @@ class SearchHandler(webapp2.RequestHandler):
                         "current_user": False,
                         "follow": follow,
                         "n_follow":n_follow,
+                        "n_followers": n_followers,
                         "images": imgs
                     }
                     self.response.write(jinja.render_template("index.html", **labels))
