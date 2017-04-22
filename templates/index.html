@@ -21,12 +21,14 @@
                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Edit"/>
               </form>
               {% elif follow %}
-              <form action="/follow?u={{user.user_id}}" method="post">
+              <form action="/unfollow?id={{user.key.urlsafe()}}" method="post">
                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Unfollow"/>
+                <input type="text" name="unfollow"  value="{{user.nickname}}" hidden/>
               </form>
-              {% else%}
-              <form action="/follow?f={{user.user_id}}" method="post">
+              {% else  %}
+              <form action="/follow?id={{user.key.urlsafe()}}" method="post">
                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Follow"/>
+                <input type="text" name="follow"  value="{{user.nickname}}" hidden/>
               </form>
               {% endif %}
             </div>

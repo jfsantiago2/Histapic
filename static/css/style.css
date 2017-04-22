@@ -2,7 +2,7 @@
 .navbar {
     background-color: #F8F8F8;
     border-color: #E7E7E7;
-    min-height: 70px;
+    height: 70px;
     color: #000;
 }
 
@@ -261,6 +261,7 @@
 /*Custom search*/
 
 .custom-search{
+    height: 70px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -269,6 +270,14 @@
 
 .custom-input-search{
     padding: 10px;
+}
+
+.custom-search .navbar-form {
+    text-align: center;
+}
+
+.custom-search .btn {
+    height: 33.9px ;
 }
 
 /*Custom logout*/

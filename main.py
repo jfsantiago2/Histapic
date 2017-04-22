@@ -7,6 +7,7 @@ from controller.searchHandler import SearchHandler
 from controller.menuHandler import MainMenuHandler
 from controller.profileHandler import ProfileHandler
 from controller.uploadHandler import UploadHandler
+from controller.followHandler import FollowHandler,UnfollowHandler
 from controller.errorHandler import ErrorHandler
 
 
@@ -48,5 +49,7 @@ app = webapp2.WSGIApplication([
     ("/profile", ProfileHandler),
     ("/upload", UploadHandler),
     ("/search", SearchHandler),
+    ("/follow", FollowHandler),
+    ("/unfollow", UnfollowHandler),
     ("/error", ErrorHandler),
     ], debug=True)

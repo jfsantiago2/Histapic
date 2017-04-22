@@ -9,9 +9,10 @@ from google.appengine.ext import ndb
 
 class SearchHandler(webapp2.RequestHandler):
 
-    def post(self):
+    def get(self):
         jinja = jinja2.get_jinja2(app=self.app)
         user = users.get_current_user()
+
 
         # comprobar si el current_user sigue al usuario buscado y retornar el numero de seguidores y seguidos
         def searchFollowers(user):
@@ -27,7 +28,7 @@ class SearchHandler(webapp2.RequestHandler):
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
-            search = self.request.get('search')
+            search = self.request.get('user')
             if search == "":
                 self.redirect("/")
             else:
@@ -41,7 +42,9 @@ class SearchHandler(webapp2.RequestHandler):
                     for user in user_info:
                         key = user.id_user
 
-                    follow, n_follow, n_followers = searchFollowers(user)
+                    user = users.get_current_user()
+                    nickname = user.nickname()
+                    follow, n_follow, n_followers = searchFollowers(nickname)
 
                     imgs = Image.query(Image.autor == key)
                     labels = {
