@@ -6,7 +6,7 @@
       <div class="custom-container">
         <div class="profile-image">
         {% for user in user_info %}
-          {% if user.avatar != None%}
+          {% if user.avatar != None %}
           <img src='data:image/png;base64, {{ user.avatar.encode("base64") }}' class="img-circle"  alt="Image">
           {% else %}
           <img src='static/images/profile-icon.png' class="img-circle"  alt="Image">
@@ -30,7 +30,11 @@
               </form>
               {% endif %}
             </div>
-            <p>"{{ user.description }}"</p>
+            {% if user.description == None %}
+            <p> "Not description yet"</p>
+            {% else %}
+            <p> "{{user.description}}"</p>
+            {% endif %}
             <div class="statistic">
               <p>Followers: {{ n_followers }}</p>
               <p>Follow: {{ n_follow }}</p>
