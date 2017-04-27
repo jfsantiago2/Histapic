@@ -1,18 +1,15 @@
 import webapp2
-import time
 
 from webapp2_extras import jinja2
 from google.appengine.api import users
 from model.userModel import User
 from model.imagesModel import Image
-from google.appengine.ext import ndb
 
 class SearchHandler(webapp2.RequestHandler):
 
     def get(self):
         jinja = jinja2.get_jinja2(app=self.app)
         user = users.get_current_user()
-
 
         # comprobar si el current_user sigue al usuario buscado y retornar el numero de seguidores y seguidos
         def searchFollowers(user):
@@ -24,6 +21,11 @@ class SearchHandler(webapp2.RequestHandler):
                     follow = True
             return follow, n_follow, n_followers
 
+        #retornar el id de un usuario
+        def id(user_info):
+            for user in user_info:
+                id = user.id_user
+            return id
 
         if user == None:
             self.redirect(users.create_logout_url("/"))
@@ -36,17 +38,15 @@ class SearchHandler(webapp2.RequestHandler):
                 if user_info.count() == 0:
                     self.redirect("/error?msg=Nickname does not exist&handler=/main")
                     return
-                elif(search == user):
+                elif(search == user.nickname()):
                     self.redirect("/")
                 else:
-                    for user in user_info:
-                        key = user.id_user
-
+                    id = id(user_info)
                     user = users.get_current_user()
                     nickname = user.nickname()
                     follow, n_follow, n_followers = searchFollowers(nickname)
 
-                    imgs = Image.query(Image.autor == key)
+                    imgs = Image.query(Image.autor == id)
                     labels = {
                         "user_logout": users.create_logout_url("/"),
                         "user_info": user_info,

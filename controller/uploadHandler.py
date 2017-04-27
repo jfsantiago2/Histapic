@@ -17,59 +17,49 @@ class UploadHandler(webapp2.RequestHandler):
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
-            email = user.nickname()
-            if "@" not in email:
-                email = email+ "@gmail.com"
 
-        user_info = User.query(User.email == email)
+            current_user = User.query(User.email == user.email())
 
-        labels = {
-            "tags": ["culture","extreme sports","motor","social","videogames"],
-            "user_info" : user_info,
-            "user_logout": users.create_logout_url("/"),
+            labels = {
+                "categories": ["culture","extreme sports","motor","social","videogames","other"],
+                "user_info" : current_user,
+                "user_logout": users.create_logout_url("/"),
 
-        }
+            }
 
         self.response.write(jinja.render_template("upload.html", **labels))
 
 
     def post(self):
-        jinja = jinja2.get_jinja2(app=self.app)
-        user = users.get_current_user()
-        try:
-            id = self.request.GET['id']
-        except:
-            id = None
 
         user = users.get_current_user()
 
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
-            try:
-                user_info = ndb.Key(urlsafe=id).get()
-            except:
-                self.redirect("/error?msg=Key does not exist&handler=/profile")
-                return
 
-        user_info.publications=user_info.publications+1
-        user_info.tags[self.request.get('tag')] = "tag"
-        user_info.put()
-        time.sleep(1)
+            current_user = User.query(User.email == user.email())
+            current_user = current_user.get()
 
-        if user == None:
-            self.redirect(users.create_logout_url("/"))
-        else:
-            img = Image(title=self.request.get('title'),
-                        comment=self.request.get('comment'),
-                        autor=user.user_id(),
-                        tag=self.request.get('tag'),
-                        image_info=self.request.get('img'))
+            current_user.publications=current_user.publications+1
+            current_user.categories[self.request.get('category')] = "category"
+            current_user.put()
+            time.sleep(1)
 
-        img.put()
-        time.sleep(1)
+            if user == None:
+                self.redirect(users.create_logout_url("/"))
+            else:
+                img = Image(title=self.request.get('title'),
+                            comment=self.request.get('comment'),
+                            autor=user.user_id(),
+                            category=self.request.get('category'),
+                            image_info=self.request.get('img'),
+                            id_image=user.nickname()+ str(time.time()).replace(".",""))
 
-        self.redirect("/main")
+            img.put()
+            time.sleep(1)
+
+            self.redirect("/main")
 
 
 

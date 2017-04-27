@@ -2,7 +2,6 @@
 .navbar {
     background-color: #F8F8F8;
     border-color: #E7E7E7;
-    height: 70px;
     color: #000;
 }
 
@@ -250,14 +249,6 @@
     100%    {background:transparent;}
 }
 
-
-/*Gallery*/
-
-.custom-images img{
-
-}
-
-
 /*Custom search*/
 
 .custom-search{
@@ -289,6 +280,11 @@
 }
 .custom-logout p{
 padding-left: 3px;
+}
+
+/*Custom background*/
+.custom-background{
+    background-color: #FDFDFD;
 }
 
 

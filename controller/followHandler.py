@@ -2,27 +2,27 @@ import webapp2
 import time
 from model.userModel import User
 from google.appengine.api import users
-from google.appengine.ext import ndb
+
 
 class FollowHandler(webapp2.RequestHandler):
     def post(self):
-        user = users.get_current_user()
 
-        id = self.request.GET['id']
+        user = users.get_current_user()
 
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
-            current_user = User.query(User.email == user.email())
-            current_user = current_user.get()
-            key = current_user.key.urlsafe()
 
-            follow =  self.request.get('follow')
-            other_user = ndb.Key(urlsafe=id).get()
-            current_user = ndb.Key(urlsafe=key).get()
+            follow = self.request.get('follow')
 
-            if follow!=None:
-                print("asfdasd")
+            if follow != "":
+
+                current_user = User.query(User.email == user.email())
+                other_user = User.query(User.email == follow)
+
+                current_user = current_user.get()
+                other_user = other_user.get()
+
                 other_user.followers[current_user.nickname] = current_user.nickname
                 current_user.follow[follow] = follow
 
@@ -39,22 +39,20 @@ class UnfollowHandler(webapp2.RequestHandler):
     def post(self):
         user = users.get_current_user()
 
-        id = self.request.GET['id']
-
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
-            current_user = User.query(User.email == user.email())
-            current_user = current_user.get()
-            key = current_user.key.urlsafe()
 
             unfollow = self.request.get('unfollow')
 
-            other_user = ndb.Key(urlsafe=id).get()
-            current_user = ndb.Key(urlsafe=key).get()
+            if unfollow != "":
 
-            if unfollow!="":
-                print("hol")
+                current_user = User.query(User.email == user.email())
+                other_user = User.query(User.email == unfollow)
+
+                current_user = current_user.get()
+                other_user = other_user.get()
+
                 del other_user.followers[current_user.nickname]
                 time.sleep(1)
                 del current_user.follow[other_user.nickname]

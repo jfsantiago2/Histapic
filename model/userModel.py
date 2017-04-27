@@ -9,4 +9,4 @@ class User(ndb.Model):
     follow = ndb.PickleProperty(default={})
     followers = ndb.PickleProperty(default={})
     publications = ndb.IntegerProperty(default=0)
-    tags = ndb.PickleProperty(default={})
+    categories = ndb.PickleProperty(default={})

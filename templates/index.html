@@ -1,7 +1,7 @@
 {% extends "skeleton.html" %}
 {% block mainContainer %}
 
-<div class="jumbotron">
+<div class="jumbotron custom-background">
     <div class="container text-center">
       <div class="custom-container">
         <div class="profile-image">
@@ -21,21 +21,21 @@
                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Edit"/>
               </form>
               {% elif follow %}
-              <form action="/unfollow?id={{user.key.urlsafe()}}" method="post">
+              <form action="/unfollow" method="post">
                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Unfollow"/>
                 <input type="text" name="unfollow"  value="{{user.nickname}}" hidden/>
               </form>
               {% else  %}
-              <form action="/follow?id={{user.key.urlsafe()}}" method="post">
+              <form action="/follow" method="post">
                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Follow"/>
                 <input type="text" name="follow"  value="{{user.nickname}}" hidden/>
               </form>
               {% endif %}
             </div>
-            {% if user.description == None %}
+            {% if user.description == "None" %}
             <p> "Not description yet"</p>
             {% else %}
-            <p> "{{user.description}}"</p>
+            <p> "{{ user.description }}"</p>
             {% endif %}
             <div class="statistic">
               <p>Followers: {{ n_followers }}</p>
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="profile-data">
-            <p>Tags:</p>
+            <p>Categories:</p>
             <ul>
               {% if user.tags %}
               {% for tag in user.tags.keys() %}
@@ -71,7 +71,12 @@
         <div class="col-sm-3 custom-images">
           <p>{{ image.title }}</p>
           {% if image.image_info %}
-          <a href="#"><img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive"  alt="Image"></a>
+          <button type="button" data-toggle="modal" data-target="#myModal-{{image.id_image[-1]}}">
+            <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
+          </button>
+
+          {% include 'picture_modal.html' %}
+
           {% endif %}
         </div>
         {% endfor %}
