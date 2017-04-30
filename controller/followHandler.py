@@ -16,22 +16,26 @@ class FollowHandler(webapp2.RequestHandler):
             follow = self.request.get('follow')
 
             if follow != "":
-
+                print(follow)
                 current_user = User.query(User.email == user.email())
                 other_user = User.query(User.email == follow)
 
                 current_user = current_user.get()
                 other_user = other_user.get()
 
-                other_user.followers[current_user.nickname] = current_user.nickname
-                current_user.follow[follow] = follow
+                if current_user.email not in other_user.followers:
+                    other_user.followers.append(current_user.email)
+
+                if follow not in current_user.follow:
+                    current_user.follow.append(follow)
 
                 other_user.put()
                 time.sleep(1)
                 current_user.put()
                 time.sleep(1)
 
-        self.redirect("/search?user="+other_user.nickname)
+        #Not needed with AJAX implementation
+        #self.redirect("/search?user="+other_user.nickname)
 
 
 class UnfollowHandler(webapp2.RequestHandler):
@@ -53,15 +57,13 @@ class UnfollowHandler(webapp2.RequestHandler):
                 current_user = current_user.get()
                 other_user = other_user.get()
 
-                del other_user.followers[current_user.nickname]
-                time.sleep(1)
-                del current_user.follow[other_user.nickname]
-                time.sleep(1)
+                other_user.followers.remove(current_user.email)
+                current_user.follow.remove(other_user.email)
 
                 other_user.put()
                 time.sleep(1)
                 current_user.put()
                 time.sleep(1)
 
-
-        self.redirect("/search?user="+other_user.nickname)
+        # Not needed with AJAX implementation
+        #self.redirect("/search?user="+other_user.nickname)

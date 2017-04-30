@@ -1,0 +1,38 @@
+{% extends "skeleton.html" %}
+{% block mainContainer %}
+
+<div class="jumbotron custom-background">
+    <div class="container text-center ">
+      <div class="image-container">
+       {% for image in image_info %}
+          {% if image.image_info %}
+            <div class="image-center">
+                <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
+            </div>
+
+          <div class="image-comments">
+
+            {% for comment in comments %}
+                <div>
+                    <h2>{{comment.autor}}</h2>
+                    <p>{{comment.comment}}</p>
+                    <p>{{comment.date}}</p>
+                </div>
+
+            {% endfor %}
+
+              <div>
+                <input type="text" id="comment"  />
+                <input type="text" id="id_image"  value="{{image.id_image}}" hidden/>
+                <input type="submit" id="submitComment" class="btn btn-primary" value="Comment"/>
+            </div>
+
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

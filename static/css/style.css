@@ -287,6 +287,25 @@ padding-left: 3px;
     background-color: #FDFDFD;
 }
 
+/*Image style*/
+
+.image-center{
+    width: 600px;
+    height: 450px;
+}
+
+.image-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.image-comments{
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+}
+
 
 /* MEDIA QUERIES: Large and single devices*/
 @media only screen and (max-width: 1200px) {

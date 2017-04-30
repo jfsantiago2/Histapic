@@ -1,20 +1,37 @@
 <!-- Modal -->
 <div class="container">
-<div class="modal fade" id="myModal-{{image.id_image[-1]}}" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{ image.title }}</h4>
-      </div>
-      <div class="modal-body">
-        <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <div class="modal fade" id="myModal-{{image.id_image}}" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{ image.title }}</h4>
+        </div>
+        <div class="modal-body">
+          <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
+          <div id="comments">
+            {% if image.comments|length != 0 %}
+            {% for comments in image.comments.keys() %}
+              <p>Autor: {{comments}}</p>
+              <p>Comentario: {{image.comments[comments]}}</p>
+            {% endfor %}
+            {% else %}
+              <p>"Not comments yet"</p>
+            {% endif %}
+          </div>
+          <div>
+                <input type="text" id="comment"  />
+                <input type="text" id="id_image"  value="{{image.id_image}}" hidden/>
+                <input type="submit" id="submitComment" class="btn btn-primary" action="javascript:document.location.reload()" value="Comment"/>
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>

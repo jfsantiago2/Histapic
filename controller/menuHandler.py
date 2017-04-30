@@ -3,6 +3,7 @@ from webapp2_extras import jinja2
 from google.appengine.api import users
 from model.imagesModel import Image
 from model.userModel import User
+from model.commentsModel import Comment
 
 class MainMenuHandler(webapp2.RequestHandler):
     def get(self):
@@ -19,6 +20,7 @@ class MainMenuHandler(webapp2.RequestHandler):
                 n_followers = len(x.followers)
 
             imgs = Image.query(Image.autor == user_id)
+
 
             labels = {
                 "user_logout": users.create_logout_url("/"),

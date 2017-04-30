@@ -46,15 +46,29 @@ class UploadHandler(webapp2.RequestHandler):
             current_user.put()
             time.sleep(1)
 
-            if user == None:
-                self.redirect(users.create_logout_url("/"))
+            #preparar id de imagen
+            if "@" in user.nickname():
+                nickname = user.nickname().split("@")
+                nickname = nickname[0]
+
             else:
-                img = Image(title=self.request.get('title'),
-                            comment=self.request.get('comment'),
-                            autor=user.user_id(),
-                            category=self.request.get('category'),
-                            image_info=self.request.get('img'),
-                            id_image=user.nickname()+ str(time.time()).replace(".",""))
+                nickname = user.nickname()
+
+
+            if self.request.get('img') == "" :
+                self.redirect("/error?msg=Image is mandatory&handler=/upload")
+                return
+
+            if self.request.get('title') == "" :
+                self.redirect("/error?msg=Title is mandatory&handler=/upload")
+                return
+
+            img = Image(title=self.request.get('title'),
+                        comment=self.request.get('comment'),
+                        autor=user.user_id(),
+                        category=self.request.get('category'),
+                        image_info=self.request.get('img'),
+                        id_image=nickname+str(time.time()).replace(".",""))
 
             img.put()
             time.sleep(1)

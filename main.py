@@ -8,8 +8,8 @@ from controller.menuHandler import MainMenuHandler
 from controller.profileHandler import ProfileHandler
 from controller.uploadHandler import UploadHandler
 from controller.followHandler import FollowHandler,UnfollowHandler
+from controller.commentsHandler import CommentHandler
 from controller.errorHandler import ErrorHandler
-
 
 class MainHandler(webapp2.RequestHandler):
 
@@ -51,5 +51,6 @@ app = webapp2.WSGIApplication([
     ("/search", SearchHandler),
     ("/follow", FollowHandler),
     ("/unfollow", UnfollowHandler),
+    ("/comment", CommentHandler),
     ("/error", ErrorHandler),
     ], debug=True)

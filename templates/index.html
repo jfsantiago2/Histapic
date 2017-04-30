@@ -1,6 +1,8 @@
 {% extends "skeleton.html" %}
 {% block mainContainer %}
 
+
+
 <div class="jumbotron custom-background">
     <div class="container text-center">
       <div class="custom-container">
@@ -21,25 +23,21 @@
                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Edit"/>
               </form>
               {% elif follow %}
-              <form action="/unfollow" method="post">
-                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Unfollow"/>
-                <input type="text" name="unfollow"  value="{{user.nickname}}" hidden/>
-              </form>
+                <input type="text" name="unfollow" id="unfollow"  value="{{user.email}}" hidden/>
+                <input type="submit" class="btn btn-primary btn-block" id="submitUnfollow" value="Unfollow"/>
               {% else  %}
-              <form action="/follow" method="post">
-                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Follow"/>
-                <input type="text" name="follow"  value="{{user.nickname}}" hidden/>
-              </form>
+                <input type="text" name="follow" id="follow"  value="{{user.email}}" hidden/>
+                <input type="submit" class="btn btn-primary btn-block" id="submitFollow" value="Follow"/>
               {% endif %}
             </div>
-            {% if user.description == "None" %}
-            <p> "Not description yet"</p>
+            {% if not user.description %}
+            <p> "No description available"</p>
             {% else %}
             <p> "{{ user.description }}"</p>
             {% endif %}
             <div class="statistic">
-              <p>Followers: {{ n_followers }}</p>
-              <p>Follow: {{ n_follow }}</p>
+              <p>Followers: {{ user.followers|length }}</p>
+              <p>Follow: {{ user.follow|length }}</p>
             </div>
           </div>
           <div class="profile-data">
@@ -50,7 +48,7 @@
               <li><button type="button" class="btn btn-default">{{ tag }}</button></li>
               {% endfor %}
               {% else %}
-              Not tags yet
+              No tags available
               {% endif %}
             </ul>
             <div class="statistic">
@@ -71,9 +69,15 @@
         <div class="col-sm-3 custom-images">
           <p>{{ image.title }}</p>
           {% if image.image_info %}
-          <button type="button" data-toggle="modal" data-target="#myModal-{{image.id_image[-1]}}">
+
+          <a href="/comment?id={{image.id_image}}">
             <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
-          </button>
+          </a>
+
+
+<!--          <button type="button" data-toggle="modal" data-target="#myModal-{{image.id_image}}">
+            <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
+          </button>-->
 
           {% include 'picture_modal.html' %}
 
