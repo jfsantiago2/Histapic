@@ -38,11 +38,27 @@ class UploadHandler(webapp2.RequestHandler):
             self.redirect(users.create_logout_url("/"))
         else:
 
+            if self.request.get('img') == "":
+                self.redirect("/error?msg=Image is mandatory&handler=/upload")
+                return
+
+            if self.request.get('title') == "":
+                self.redirect("/error?msg=Title is mandatory&handler=/upload")
+                return
+
             current_user = User.query(User.email == user.email())
             current_user = current_user.get()
 
+            category = self.request.get('category')
+
             current_user.publications=current_user.publications+1
-            current_user.categories[self.request.get('category')] = "category"
+
+            for x in current_user.categories:
+                print(x)
+
+            if category not in current_user.categories:
+                current_user.categories.append(category)
+
             current_user.put()
             time.sleep(1)
 
@@ -54,19 +70,10 @@ class UploadHandler(webapp2.RequestHandler):
             else:
                 nickname = user.nickname()
 
-
-            if self.request.get('img') == "" :
-                self.redirect("/error?msg=Image is mandatory&handler=/upload")
-                return
-
-            if self.request.get('title') == "" :
-                self.redirect("/error?msg=Title is mandatory&handler=/upload")
-                return
-
             img = Image(title=self.request.get('title'),
                         comment=self.request.get('comment'),
                         autor=user.user_id(),
-                        category=self.request.get('category'),
+                        category=category,
                         image_info=self.request.get('img'),
                         id_image=nickname+str(time.time()).replace(".",""))
 

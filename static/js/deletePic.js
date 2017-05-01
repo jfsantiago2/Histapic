@@ -1,27 +1,28 @@
 $(document).ready(function(){
- $("#submitComment").click(function(){
-    var name = $("#comment").val();
-    var id_image = $("#id_image").val();
+ $("#deletePic").click(function(){
+    var id_image = $("#idimage").val();
+    var autor = $("#autor").val();
 
     // Returns successful data submission message when the entered information is stored in database.
-    var dataString = 'comment='+ name +'&id=' + id_image;
-    if(name=='' || id_image=='')
+    var dataString = 'id=' + id_image + '&autor=' + autor;
+    if(id_image=='' || autor=='')
     {
-    return false;
+    alert("An error ocurred");
     }
     else
     {
     // AJAX Code To Submit Form.
     $.ajax({
         type: "POST",
-        url: "/comment",
+        url: "/deletePic",
         data: dataString,
         cache: false,
             success: function(){
-                location.reload();
+                window.location.replace("/main");
             }
         });
     }
     return false;
     });
 });
+

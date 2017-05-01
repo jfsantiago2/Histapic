@@ -26,9 +26,6 @@ class MainMenuHandler(webapp2.RequestHandler):
                 "user_logout": users.create_logout_url("/"),
                 "user_info": user_info,
                 "current_user": True,
-                "current_user_": user,
-                "n_follow":n_follow,
-                "n_followers": n_followers,
                 "images": imgs
             }
             self.response.write(jinja.render_template("index.html", **labels))

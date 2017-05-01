@@ -2,13 +2,16 @@ import webapp2
 import time
 from webapp2_extras import jinja2
 from google.appengine.api import users
+
+
 from model.userModel import User
 from controller.searchHandler import SearchHandler
 from controller.menuHandler import MainMenuHandler
 from controller.profileHandler import ProfileHandler
+from controller.deleteHandler import DeleteHandler
 from controller.uploadHandler import UploadHandler
 from controller.followHandler import FollowHandler,UnfollowHandler
-from controller.commentsHandler import CommentHandler
+from controller.commentsHandler import CommentHandler,LikesHandler,UnlikesHandler
 from controller.errorHandler import ErrorHandler
 
 class MainHandler(webapp2.RequestHandler):
@@ -40,8 +43,6 @@ class MainHandler(webapp2.RequestHandler):
             self.redirect("/main")
 
 
-
-
 app = webapp2.WSGIApplication([
 
     ("/", MainHandler),
@@ -52,5 +53,8 @@ app = webapp2.WSGIApplication([
     ("/follow", FollowHandler),
     ("/unfollow", UnfollowHandler),
     ("/comment", CommentHandler),
+    ("/like", LikesHandler),
+    ("/unlike", UnlikesHandler),
+    ("/deletePic", DeleteHandler),
     ("/error", ErrorHandler),
     ], debug=True)

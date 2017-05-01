@@ -83,7 +83,7 @@ class ProfileHandler(webapp2.RequestHandler):
             if image == "":
                 image = None
 
-            current_user.nickname =self.request.get('nick_name')
+            current_user.nickname = self.request.get('nick_name')
             current_user.email = self.request.get('email')
             current_user.description = self.request.get('description')
             current_user. avatar = image
