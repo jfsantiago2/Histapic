@@ -1,15 +1,27 @@
 import webapp2
 import time
+import json
 
 from webapp2_extras import jinja2
 from google.appengine.api import users
 from model.userModel import User
 from model.imagesModel import Image
-from google.appengine.ext import ndb
+
 
 class UploadHandler(webapp2.RequestHandler):
 
     def get(self):
+
+        # get users nickname to add on list search
+        def getUsers():
+            us = User.query()
+            toret = []
+            for u in us:
+                toret.append(u.nickname)
+
+            user_list = json.dumps(toret)
+
+            return user_list
         jinja = jinja2.get_jinja2(app=self.app)
 
         user = users.get_current_user()
@@ -23,6 +35,7 @@ class UploadHandler(webapp2.RequestHandler):
             labels = {
                 "categories": ["culture","extreme sports","motor","social","videogames","other"],
                 "user_info" : current_user,
+                "usersearch": getUsers(),
                 "user_logout": users.create_logout_url("/"),
 
             }

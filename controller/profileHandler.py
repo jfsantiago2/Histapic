@@ -1,5 +1,6 @@
 import time
 import webapp2
+import json
 
 from webapp2_extras import jinja2
 from model.userModel import User
@@ -9,8 +10,19 @@ from google.appengine.api import users
 class ProfileHandler(webapp2.RequestHandler):
 
     def get(self):
-        jinja = jinja2.get_jinja2(app=self.app)
 
+        # get users nickname to add on list search
+        def getUsers():
+            us = User.query()
+            toret = []
+            for u in us:
+                toret.append(u.nickname)
+
+            user_list = json.dumps(toret)
+
+            return user_list
+
+        jinja = jinja2.get_jinja2(app=self.app)
         user = users.get_current_user()
         user_id = user.user_id()
 
@@ -27,6 +39,7 @@ class ProfileHandler(webapp2.RequestHandler):
             labels = {
                 "user_info" : user_info,
                 "user_logout": users.create_logout_url("/"),
+                "usersearch": getUsers(),
                 "msg": msg
 
             }
@@ -37,13 +50,6 @@ class ProfileHandler(webapp2.RequestHandler):
     def post(self):
         jinja = jinja2.get_jinja2(app=self.app)
 
-        def checkEmail(email,id):
-            toret = False
-            for p in User.query(User.id_user != id):
-                if p.email == email:
-                    toret = True
-            return toret
-
         def checkNickname(nickname, id):
             toret = False
             for p in User.query(User.id_user != id):
@@ -51,7 +57,7 @@ class ProfileHandler(webapp2.RequestHandler):
                     toret = True
             return toret
 
-        #retornar el id de un usuario
+        # return user id
         def id(user_info):
             for user in user_info:
                 id = user.id_user
@@ -67,26 +73,28 @@ class ProfileHandler(webapp2.RequestHandler):
             current_user = current_user.get()
 
             id = current_user.id_user;
-
-            email = self.request.get('email')
             nickname = self.request.get('nick_name')
-            image = self.request.get('img')
 
-            if (checkEmail(email,id)):
-                self.redirect("/error?msg=User email already exist&handler=/profile")
-                return
+            # get avatar to load in the view
+            image = self.request.get('img')
+            if image == "":
+                if current_user.avatar != None:
+                    image = current_user.avatar
+                else:
+                    image = None
+
 
             if (checkNickname(nickname,id)):
                 self.redirect("/error?msg=User nickname already exist&handler=/profile")
                 return
 
-            if image == "":
-                image = None
+            print(image)
+
+
 
             current_user.nickname = self.request.get('nick_name')
-            current_user.email = self.request.get('email')
             current_user.description = self.request.get('description')
-            current_user. avatar = image
+            current_user.avatar = image
             current_user.put()
             time.sleep(1)
 

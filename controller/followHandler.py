@@ -34,11 +34,6 @@ class FollowHandler(webapp2.RequestHandler):
                 current_user.put()
                 time.sleep(1)
 
-                self.response.write({"follow": True})
-        #Not needed with AJAX implementation
-        #self.redirect("/search?user="+other_user.nickname)
-
-
 class UnfollowHandler(webapp2.RequestHandler):
 
     def post(self):
@@ -65,8 +60,3 @@ class UnfollowHandler(webapp2.RequestHandler):
                 time.sleep(1)
                 current_user.put()
                 time.sleep(1)
-
-                self.response.write({"unfollow": True})
-
-        # Not needed with AJAX implementation
-        #self.redirect("/search?user="+other_user.nickname)

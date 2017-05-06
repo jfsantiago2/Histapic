@@ -10,6 +10,7 @@ from google.appengine.api import users
 class DeleteHandler(webapp2.RequestHandler):
 
     def post(self):
+
         user = users.get_current_user()
 
         if user == None:
@@ -19,13 +20,12 @@ class DeleteHandler(webapp2.RequestHandler):
             id = self.request.get('id')
 
             if id == "":
-                self.redirect("/error?msg=An error ocurred&handler=/")
+                self.redirect("/error?msg=Unexpected error&handler=/")
                 return
 
             if autor == "":
-                self.redirect("/error?msg=An error ocurred&handler=/")
+                self.redirect("/error?msg=Unexpected error&handler=/")
                 return
-
 
             #check autor
             user_info = User.query(User.email == user.email())

@@ -1,4 +1,3 @@
-import os
 import webapp2
 from webapp2_extras import jinja2
 

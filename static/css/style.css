@@ -151,7 +151,17 @@
     flex-direction: row;
     justify-content: space-around;
     padding-top: 18px;
+}
+
+.profile-data .statistic p{
     color: #1b6d85;
+}
+
+.profile-description .statistic a{
+    text-decoration: none;
+    color: #1b6d85;
+    cursor: pointer;
+
 }
 
 /*Data container*/
@@ -168,6 +178,7 @@
 .profile-data p{
     text-align: left;
     font-size: 18px;
+    color: steelblue;
 }
 
 .profile-data ul{
@@ -190,9 +201,19 @@
 .miniature-image{
     display: flex;
     flex-direction: column;
-
     justify-content: center;
-    background-size: 100% 100%;
+    width: 350px;
+    height: 350px;
+    background-color: whitesmoke;
+    margin:15px;
+
+}
+
+.col-gallery{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .miniature-image img.re
@@ -296,7 +317,7 @@ padding-left: 3px;
 
 /*Custom background*/
 .custom-background{
-    background-color: #FDFDFD;
+    background-color: whitesmoke;
 }
 
 /*Image style*/
@@ -312,7 +333,7 @@ padding-left: 3px;
     flex-direction: column;
     max-width: 600px;
     justify-content: center;
-    background-color: #0f0f0f;
+    background-color: whitesmoke;
 }
 
 
@@ -431,6 +452,23 @@ padding-left: 3px;
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
 
+.custom-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+}
+
+.custom-footer p{
+    padding: 5px;
+    margin: 0;
+}
+
+.custom-footer span{
+color: #777;
+}
+
+
 
 /* MEDIA QUERIES: Large and single devices*/
 @media only screen and (max-width: 1200px) {
@@ -469,6 +507,7 @@ padding-left: 3px;
     padding: 30px 40px 0 40px;
     width: 290px;
 
+
 }
 
 .profile-data p{
@@ -481,6 +520,20 @@ padding-left: 3px;
 
 .profile-data .statistic p{
     font-size: 14px;
+}
+
+.statistic p{
+    color: #1b6d85;
+}
+
+.miniature-image{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    background-color: whitesmoke;
+
 }
 
 }
@@ -504,6 +557,17 @@ padding-left: 3px;
 
     max-width: inherit;
 }
+
+.miniature-image{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    background-color: whitesmoke;
+
+}
+
 
 
 }

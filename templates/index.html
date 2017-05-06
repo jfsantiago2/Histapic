@@ -1,85 +1,124 @@
 {% extends "skeleton.html" %}
 {% block mainContainer %}
-
-
-
-<div class="jumbotron custom-background">
-    <div class="container text-center" id="ppal-container">
+<div class="jumbotron ">
+   <div class="container text-center custom-background">
       <div class="custom-container">
-        <div class="profile-image">
-        {% for user in user_info %}
-          {% if user.avatar != None %}
-          <img src='data:image/png;base64, {{ user.avatar.encode("base64") }}' class="img-circle"  alt="Image">
-          {% else %}
-          <img src='static/images/profile-icon.png' class="img-circle"  alt="Image">
-          {% endif %}
-        </div>
-        <div class="profile" id="profile">
-          <div class="profile-description" id="profile-description">
-            <div class="autor-title">
-              <div class="name">{{ user.nickname }}</div>
-              {% if current_user %}
-              <form action="/profile" method="get" >
-                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Edit"/>
-              </form>
-              {% elif follow %}
-                <input type="text" name="unfollow" id="unfollow"  value="{{user.email}}" hidden/>
-                <input type="submit" class="btn btn-primary btn-block" id="submitUnfollow" value="Unfollow"/>
-              {% else  %}
-                <input type="text" name="follow" id="follow"  value="{{user.email}}" hidden/>
-                <input type="submit" class="btn btn-primary btn-block" id="submitFollow" value="Follow"/>
-              {% endif %}
-            </div>
-            {% if not user.description %}
-            <p> "No description available"</p>
+         <div class="profile-image">
+            {% for user in user_info %}
+            {% if user.avatar != None %}
+            <img src='data:image/png;base64, {{ user.avatar.encode("base64") }}' class="img-circle"  alt="Image">
             {% else %}
-            <p> "{{ user.description }}"</p>
+            <img src='static/images/profile-icon.png' class="img-circle"  alt="Image">
             {% endif %}
-            <div class="statistic">
-              <p>Followers: {{ user.followers|length }}</p>
-              <p>Follow: {{ user.follow|length }}</p>
+         </div>
+         <div class="profile" id="profile">
+            <div class="profile-description">
+               <div class="autor-title">
+                  <div class="name">{{ user.nickname }}</div>
+                  {% if current_user %}
+                  <form action="/profile" method="get" >
+                     <input type="submit" name="submit" class="btn btn-primary btn-block" value="Edit"/>
+                  </form>
+                  {% elif follow %}
+                  <input type="text" name="unfollow" id="unfollow"  value="{{user.email}}" hidden/>
+                  <input type="submit" class="btn btn-primary btn-block" id="submitUnfollow" value="Unfollow"/>
+                  {% else  %}
+                  <input type="text" name="follow" id="follow"  value="{{user.email}}" hidden/>
+                  <input type="submit" class="btn btn-primary btn-block" id="submitFollow" value="Follow"/>
+                  {% endif %}
+               </div>
+               {% if not user.description %}
+               <p> "No description available"</p>
+               {% else %}
+               <p> "{{ user.description }}"</p>
+               {% endif %}
+               <div class="statistic">
+                  <p>
+                     <a data-toggle="modal" data-target="#followers">
+                        Followers: {{ followers|length }}
+                     </a>
+                     <div class="modal fade" id="followers" role="dialog">
+                        <div class="modal-dialog">
+                           <!-- Modal content-->
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                 <h4 class="modal-title">Followers</h4>
+                              </div>
+                              <div class="modal-body">
+                                    {% for nick in followers %}
+                                     <a href="/search?user={{nick}}">{{nick}}</a>
+                                    {% endfor %}
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </p>
+                  <p>
+                     <a data-toggle="modal" data-target="#following">
+                        <p>Following: {{ following|length }}</p>
+                     </a>
+                     <div class="modal fade" id="following" role="dialog">
+                        <div class="modal-dialog">
+                           <!-- Modal content-->
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                 <h4 class="modal-title">Following</h4>
+                              </div>
+                              <div class="modal-body">
+                                    {% for nick in following %}
+                                     <a href="/search?user={{nick}}">{{nick}}</a>
+                                    {% endfor %}
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </p>
+               </div>
             </div>
-          </div>
-          <div class="profile-data">
-            <p>Categories:</p>
-            <ul>
-              {% if user.categories %}
-              {% for category in categories %}
-              <li><button type="button" class="btn btn-default">{{ category }}</button></li>
-              {% endfor %}
-              {% else %}
-              No tags available
-              {% endif %}
-            </ul>
-            <div class="statistic">
-              <p>Publications: {{ user.publications }}</p>
-              {% endfor %}
-             </div>
-           </div>
-        </div>
+            <div class="profile-data">
+               <p>Categories:</p>
+               <ul>
+                  {% if user.categories %}
+                  {% for category in categories %}
+                  <li><a href="/category?name={{category}}" type="button" class="btn btn-default">{{ category }}</a></li>
+                  {% endfor %}
+                  {% else %}
+                  No categories available
+                  {% endif %}
+               </ul>
+               <div class="statistic">
+                  <p>Publications: {{ user.publications }}</p>
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
       </div>
-    </div>
+   </div>
 </div>
-
 <div class="jumbotron">
-  <div class="container text-center">
-    <h3>Lastest photos</h3><br>
-      <div class="row">
+   <div class="container text-center">
+      <div class="row col-gallery">
          {% for image in images %}
-        <div class="col-sm-6 col-md-4 ">
-          <p>{{ image.title }}</p>
-
-          {% if image.image_info %}
-          <div class="miniature-image">
+         <div >
+            <p>{{ image.title }}</p>
             <a href="/comment?id={{image.id_image}}">
-              <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
+               <div class="miniature-image ">
+                  {% if image.image_info %}
+                     <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
+                  {% endif %}
+               </div>
             </a>
-          </div>
-          {% endif %}
-        </div>
-        {% endfor %}
+         </div>
+         {% endfor %}
       </div>
-    </div>
+   </div>
 </div>
 {% endblock %}
-

@@ -1,48 +1,43 @@
 {% extends "skeleton.html" %}
 {% block mainContainer %}
-
 <div class="container">
-		<div class="row">
-			<div class="span12">
-				<div class="" id="loginModal">
-					<div class="modal-body">
-                        {% if msg == None %}
-                        <div class="modal-header">
-                            <h3>Modify your profile</h3>
-                        </div>
-                        {% else %}
-                        <div class="custom-modal-header-message" >
-                            <h3>Profile modified correctly</h3>
-                        </div>
-                        {% endif %}
-                        <div class="well">
-                            {% for user in user_info %}
-                          <form action="/profile" method="post" role="form" enctype="multipart/form-data">
-                            <!-- Nickname -->
-                            <label for="nick_name" >Nickname:</label>
-                            <input type="text" name="nick_name" id="nick_name" value="{{ user.nickname }}" class="form-control custom-input" placeholder="example@example.com" required autofocus>
-                              <!-- Email -->
-                            <label for="mail" >Email address:</label>
-                            <input type="email" name="email" id="mail" value="{{ user.email }}" class="form-control custom-input" placeholder="example@example.com" required autofocus>
-                            <!-- Avatar -->
-                            {% if user.avatar != None %}
-                            <label for="img" >Profile image:</label>
-                            <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' id="img" value='{{ user.avatar.encode("base64") }}'></span>
-                            {% else %}
-                            <label for="img" >Profile image:</label>
-                            <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' value="" ></span>
-                            {% endif %}
-                            <!-- Description -->
-                            <label for="description" >Brief description:</label>
-                            <textarea name="description" id="description" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" required>{{ user.description }}</textarea>
-                            <input type="submit" name="submit" class="btn btn-primary btn-block" value="Sign up"/>
-                            {% endfor %}
-                          </form>
-						</div>
-                	</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
+   <div class="row">
+      <div class="span12">
+         <div class="" id="loginModal">
+            <div class="modal-body">
+               {% if msg == None %}
+               <div class="modal-header">
+                  <h3>Modify your profile</h3>
+               </div>
+               {% else %}
+               <div class="custom-modal-header-message" >
+                  <h3>Profile modified correctly</h3>
+               </div>
+               {% endif %}
+               <div class="well">
+                  {% for user in user_info %}
+                  <form action="/profile" method="post" role="form" enctype="multipart/form-data">
+                     <!-- Nickname -->
+                     <label for="nick_name" >Nickname:</label>
+                     <input type="text" name="nick_name" id="nick_name" value="{{ user.nickname }}" class="form-control custom-input" placeholder="example@example.com" required autofocus>
+                     <!-- Avatar -->
+                     {% if user.avatar != None %}
+                     <label for="img" >Profile image:</label>
+                     <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' id="img" value='{{ user.avatar.encode("base64") }}'></span>
+                     {% else %}
+                     <label for="img" >Profile image:</label>
+                     <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' value="" ></span>
+                     {% endif %}
+                     <!-- Description -->
+                     <label for="description" >Brief description:</label>
+                     <textarea name="description" id="description" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" required>{{ user.description }}</textarea>
+                     <input type="submit" name="submit" class="btn btn-primary btn-block" value="Sign up"/>
+                     {% endfor %}
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
 {% endblock %}

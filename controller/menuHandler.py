@@ -4,10 +4,27 @@ from google.appengine.api import users
 from model.imagesModel import Image
 from model.userModel import User
 import json
-from model.commentsModel import Comment
 
 class MainMenuHandler(webapp2.RequestHandler):
     def get(self):
+
+        # get users nickname
+        def getNickname(email):
+            query = User.query(User.email == email)
+            nickname = query.get().nickname
+
+            return nickname
+
+        # get users nickname to add on list search
+        def getUsers():
+            us = User.query()
+            toret = []
+            for u in us:
+                toret.append(u.nickname)
+
+            user_list = json.dumps(toret)
+
+            return user_list
 
         jinja = jinja2.get_jinja2(app=self.app)
         user = users.get_current_user()
@@ -16,27 +33,31 @@ class MainMenuHandler(webapp2.RequestHandler):
         else:
             user_id = user.user_id()
             user_info = User.query(User.id_user == user_id)
+            user_atributes = user_info.get()
+
 
             #get user categories to not return duplicates
-            user_categories = user_info.get()
-            user_categories = set(user_categories.categories)
+            user_categories = set(user_atributes.categories)
             imgs = Image.query(Image.autor == user_id)
 
-            us = User.query()
-            toret = []
-            for u in us:
-                toret.append(u.nickname)
+            # create nickname followers list
+            toretFollowers = []
+            for x in user_atributes.followers:
+                toretFollowers.append(getNickname(x))
 
-
-            oquesexa = json.dumps(toret)
-
+            # create nickname following list
+            toretFollow = []
+            for x in user_atributes.follow:
+                toretFollow.append(getNickname(x))
 
             labels = {
                 "user_logout": users.create_logout_url("/"),
                 "user_info": user_info,
                 "categories": user_categories,
                 "current_user": True,
-                "oquesexa": oquesexa,
+                "usersearch": getUsers(),
+                "following": toretFollow,
+                "followers": toretFollowers,
                 "images": imgs
             }
             self.response.write(jinja.render_template("index.html", **labels))
