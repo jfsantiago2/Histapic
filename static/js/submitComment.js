@@ -18,7 +18,7 @@ $(document).ready(function(){
         data: dataString,
         cache: false,
             success: function(){
-                location.reload();
+                 $( '#for-reload' ).load('#for-reload');
             }
         });
     }

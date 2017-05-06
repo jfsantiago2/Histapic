@@ -43,10 +43,13 @@ class DeleteHandler(webapp2.RequestHandler):
 
                 #delete publication
                 user_info.publications = user_info.publications-1
+
+                # delete image category in User entity
+                user_info.categories.remove(image_info.category)
                 user_info.put()
                 time.sleep(1)
 
-                #delete comments
+                #delete image comments in Comment entity
                 for comments in comment:
                     comments.key.delete()
 

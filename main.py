@@ -3,7 +3,7 @@ import time
 from webapp2_extras import jinja2
 from google.appengine.api import users
 
-
+from controller.categoryHandler import CategoryHandler
 from model.userModel import User
 from controller.searchHandler import SearchHandler
 from controller.menuHandler import MainMenuHandler
@@ -56,5 +56,6 @@ app = webapp2.WSGIApplication([
     ("/like", LikesHandler),
     ("/unlike", UnlikesHandler),
     ("/deletePic", DeleteHandler),
+    ("/category", CategoryHandler),
     ("/error", ErrorHandler),
     ], debug=True)

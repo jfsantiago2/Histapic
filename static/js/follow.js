@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $("#submitFollow").click(function(){
-    var name = $("#follow").val();
+        event.preventDefault();
+        var name = $("#follow").val();
 
     // Returns successful data submission message when the entered information is stored in database.
     var dataString = 'follow='+ name;
@@ -17,7 +18,7 @@ $(document).ready(function(){
         data: dataString,
         cache: false,
             success: function(){
-            location.reload();
+                $( '#for-reload' ).load('#for-reload');
             }
         });
     }

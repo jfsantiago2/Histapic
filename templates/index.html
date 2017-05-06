@@ -4,7 +4,7 @@
 
 
 <div class="jumbotron custom-background">
-    <div class="container text-center">
+    <div class="container text-center" id="ppal-container">
       <div class="custom-container">
         <div class="profile-image">
         {% for user in user_info %}
@@ -14,8 +14,8 @@
           <img src='static/images/profile-icon.png' class="img-circle"  alt="Image">
           {% endif %}
         </div>
-        <div class="profile">
-          <div class="profile-description">
+        <div class="profile" id="profile">
+          <div class="profile-description" id="profile-description">
             <div class="autor-title">
               <div class="name">{{ user.nickname }}</div>
               {% if current_user %}
@@ -44,7 +44,7 @@
             <p>Categories:</p>
             <ul>
               {% if user.categories %}
-              {% for category in user.categories %}
+              {% for category in categories %}
               <li><button type="button" class="btn btn-default">{{ category }}</button></li>
               {% endfor %}
               {% else %}
@@ -75,14 +75,6 @@
               <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
             </a>
           </div>
-
-
-<!--          <button type="button" data-toggle="modal" data-target="#myModal-{{image.id_image}}">
-            <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
-          </button>-->
-
-
-
           {% endif %}
         </div>
         {% endfor %}
@@ -90,3 +82,4 @@
     </div>
 </div>
 {% endblock %}
+

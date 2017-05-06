@@ -49,15 +49,12 @@ class UploadHandler(webapp2.RequestHandler):
             current_user = User.query(User.email == user.email())
             current_user = current_user.get()
 
+            ##add category in user
             category = self.request.get('category')
+            category = category.lower()
 
             current_user.publications=current_user.publications+1
-
-            for x in current_user.categories:
-                print(x)
-
-            if category not in current_user.categories:
-                current_user.categories.append(category)
+            current_user.categories.append(category)
 
             current_user.put()
             time.sleep(1)
@@ -69,11 +66,10 @@ class UploadHandler(webapp2.RequestHandler):
 
             else:
                 nickname = user.nickname()
-
             img = Image(title=self.request.get('title'),
                         comment=self.request.get('comment'),
                         autor=user.user_id(),
-                        category=category,
+                        category= category,
                         image_info=self.request.get('img'),
                         id_image=nickname+str(time.time()).replace(".",""))
 

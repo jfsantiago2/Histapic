@@ -3,12 +3,17 @@
 
 <div class="jumbotron">
   <div class="container text-center">
+    <h3>Lastest photos</h3><br>
       <div class="row">
-         {% for image in image_info %}
-        <div class="col-sm-3 custom-images">
+         {% for image in images %}
+        <div class="col-sm-6 col-md-4 ">
           <p>{{ image.title }}</p>
-          {% if image.image_info %}
-            <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive"/>
+            {% if image.image_info %}
+          <div class="miniature-image">
+            <a href="/comment?id={{image.id_image}}">
+              <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
+            </a>
+          </div>
           {% endif %}
         </div>
         {% endfor %}
