@@ -16,22 +16,26 @@
                {% endif %}
                <div class="well">
                   {% for user in user_info %}
-                  <form action="/profile" method="post" role="form" enctype="multipart/form-data">
+                  <form action="/profile" method="post" role="form" enctype="multipart/form-data" onSubmit="return check()">
                      <!-- Nickname -->
                      <label for="nick_name" >Nickname:</label>
-                     <input type="text" name="nick_name" id="nick_name" value="{{ user.nickname }}" class="form-control custom-input" placeholder="example@example.com" required autofocus>
+                     <input type="text" name="nick_name" id="nick_name" value="{{ user.nickname }}" maxlength="30" class="form-control custom-input" placeholder="example@example.com" required autofocus>
                      <!-- Avatar -->
                      {% if user.avatar != None %}
                      <label for="img" >Profile image:</label>
-                     <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' id="img" value='{{ user.avatar.encode("base64") }}'></span>
+                     <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' id="img" id="i_file" value='{{ user.avatar.encode("base64") }}'></span>
                      {% else %}
                      <label for="img" >Profile image:</label>
-                     <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' value="" ></span>
+                     <span class="btn btn-default btn-block btn-file">Browse <input type="file" name="img" accept='image/*' id="i_file" value="" ></span>
                      {% endif %}
                      <!-- Description -->
                      <label for="description" >Brief description:</label>
-                     <textarea name="description" id="description" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" required>{{ user.description }}</textarea>
-                     <input type="submit" name="submit" class="btn btn-primary btn-block" value="Sign up"/>
+                     {% if user.description != None %}
+                     <textarea name="description" id="description" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" ></textarea>
+                     {% else %}
+                     <textarea name="description" id="description" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" >{{ user.description }}</textarea>
+                     {% endif %}
+                     <input type="submit" name="submit" class="btn btn-primary btn-block" id="i_submit" value="Sign up"/>
                      {% endfor %}
                   </form>
                </div>

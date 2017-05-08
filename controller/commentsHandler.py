@@ -12,6 +12,13 @@ from google.appengine.api import users
 class CommentHandler(webapp2.RequestHandler):
     def get(self):
 
+        # get users nickname
+        def getNickname(email):
+            query = User.query(User.email == email)
+            nickname = query.get().nickname
+
+            return nickname
+
         # get users nickname to add on list search
         def getUsers():
             us = User.query()
@@ -58,7 +65,7 @@ class CommentHandler(webapp2.RequestHandler):
 
                         # check current user to reload data
                         current_user = False
-                        if autor_name == user.nickname():
+                        if autor_name == getNickname(user.email()):
                             current_user = True
 
                          # check followers
@@ -90,21 +97,27 @@ class CommentHandler(webapp2.RequestHandler):
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
+
+            # get user nickname (its posible that he would change it)
+            user_query = User.query(User.email == user.email())
+            user_info = user_query.get()
+            nick = user_info.nickname
+
+            # receiving data
             comment = self.request.get('comment')
             id = self.request.get('id')
 
             if id == "":
-                self.redirect("/error?msg=An error ocurred&handler=/")
+                self.redirect("/error?msg=An error ocurred&handler=/search?user="+ nick)
                 return
             elif comment == "":
-                self.redirect("/error?msg=An error ocurred&handler=/")
+                self.redirect("/error?msg=An error ocurred&handler=/search?user="+ nick)
                 return
             else:
 
-                comment = Comment(autor=user.nickname(),
+                comment = Comment(autor=nick,
                                   comment=comment,
                                   image=id)
-
                 comment.put()
                 time.sleep(1)
 

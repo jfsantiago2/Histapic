@@ -47,7 +47,7 @@ class SearchHandler(webapp2.RequestHandler):
                 if user_info.count() == 0:
                     self.redirect("/error?msg=Nickname does not exist&handler=/main")
                     return
-                elif(search == user.nickname()):
+                elif(search == getNickname(user.email())):
                     self.redirect("/")
                 else:
                     id = id(user_info)

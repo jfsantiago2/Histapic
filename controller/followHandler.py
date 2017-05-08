@@ -16,7 +16,6 @@ class FollowHandler(webapp2.RequestHandler):
             follow = self.request.get('follow')
 
             if follow != "":
-                print(follow)
                 current_user = User.query(User.email == user.email())
                 other_user = User.query(User.email == follow)
 

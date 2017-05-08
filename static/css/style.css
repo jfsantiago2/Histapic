@@ -209,6 +209,10 @@
 
 }
 
+.miniature-image .img-responsive{
+    max-height: 350px;
+}
+
 .col-gallery{
     display: flex;
     flex-direction: row;
@@ -457,6 +461,7 @@ padding-left: 3px;
     flex-direction: row;
     justify-content:center;
     align-items: center;
+
 }
 
 .custom-footer p{
@@ -466,6 +471,10 @@ padding-left: 3px;
 
 .custom-footer span{
 color: #777;
+}
+
+.modal-body a{
+    display: block;
 }
 
 
@@ -534,6 +543,10 @@ color: #777;
     height: 300px;
     background-color: whitesmoke;
 
+}
+
+.miniature-image .img-responsive{
+    max-height: 300px;
 }
 
 }

@@ -71,7 +71,7 @@
                               </div>
                               <div class="modal-body">
                                     {% for nick in following %}
-                                     <a href="/search?user={{nick}}">{{nick}}</a>
+                                 <a href="/search?user={{nick}}">{{nick}}</a>
                                     {% endfor %}
                               </div>
                               <div class="modal-footer">
@@ -112,7 +112,7 @@
             <a href="/comment?id={{image.id_image}}">
                <div class="miniature-image ">
                   {% if image.image_info %}
-                     <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive" >
+                     <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive">
                   {% endif %}
                </div>
             </a>
