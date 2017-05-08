@@ -30,7 +30,7 @@
                      {% endif %}
                      <!-- Description -->
                      <label for="description" >Brief description:</label>
-                     {% if user.description != None %}
+                     {% if user.description == None %}
                      <textarea name="description" id="description" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" ></textarea>
                      {% else %}
                      <textarea name="description" id="description" class="form-control custom-input" placeholder="max 170 characters" maxlength="170" >{{ user.description }}</textarea>

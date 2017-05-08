@@ -8,7 +8,7 @@ $(document).ready(function(){
 
         if(fsize>1048576) //do something if file size more than 1 mb (1048576)
         {
-            alert(fsize/1048576 +" MB\nToo big image!");
+            alert(fsize/1048576 +" MB\nToo big image! ! Only 1MB allowed");
             return false;
         }
     }else{

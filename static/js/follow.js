@@ -1,6 +1,5 @@
 $(document).ready(function(){
     $("#submitFollow").click(function(){
-        event.preventDefault();
         var name = $("#follow").val();
 
     // Returns successful data submission message when the entered information is stored in database.
