@@ -62,7 +62,7 @@ class UploadHandler(webapp2.RequestHandler):
             current_user = User.query(User.email == user.email())
             current_user = current_user.get()
 
-            ##add category in user
+            #add category in user
             category = self.request.get('category')
             category = category.lower()
 
@@ -72,13 +72,13 @@ class UploadHandler(webapp2.RequestHandler):
             current_user.put()
             time.sleep(1)
 
-            #preparar id de imagen
-            if "@" in user.nickname():
+            #prepare image id
+            if "@" in current_user.nickname:
                 nickname = user.nickname().split("@")
                 nickname = nickname[0]
 
             else:
-                nickname = user.nickname()
+                nickname = current_user.nickname
             img = Image(title=self.request.get('title'),
                         comment=self.request.get('comment'),
                         autor=user.user_id(),
