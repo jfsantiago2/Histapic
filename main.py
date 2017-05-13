@@ -4,6 +4,7 @@ from webapp2_extras import jinja2
 from google.appengine.api import users
 
 from controller.categoryHandler import CategoryHandler
+from controller.notfoundHandler import NotFoundPageHandler
 from model.userModel import User
 from controller.searchHandler import SearchHandler
 from controller.menuHandler import MainMenuHandler
@@ -60,4 +61,7 @@ app = webapp2.WSGIApplication([
     ("/category", CategoryHandler),
     ("/myphotos", MyphotosHandler),
     ("/error", ErrorHandler),
+    ('/.*', NotFoundPageHandler),
+
     ], debug=True)
+
