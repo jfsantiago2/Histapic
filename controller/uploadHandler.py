@@ -89,7 +89,7 @@ class UploadHandler(webapp2.RequestHandler):
             img.put()
             time.sleep(1)
 
-            self.redirect("/main")
+            self.redirect("/myphotos")
 
 
 

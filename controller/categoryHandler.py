@@ -31,17 +31,19 @@ class CategoryHandler(webapp2.RequestHandler):
             if category == "":
                 self.redirect("/")
             else:
-                #Search images by category
+                #Check images by category
                 category = category.lower()
-                image_info = Image.query(Image.category == category)
-                if image_info.count() == 0:
+                if category not in ["culture","extreme sports","motor","social","videogames","other"]:
                     self.redirect("/error?msg=There are no photos uploaded with this category&handler=/main")
                     return
                 else:
+                    # Search images by category
+                    image_info = Image.query(Image.category == category)
                     labels = {
                         "user_logout": users.create_logout_url("/"),
                         "images": image_info,
+                        "category": category,
                         "usersearch":getUsers()
 
                     }
-                    self.response.write(jinja.render_template("search_pictures.html", **labels))
+                    self.response.write(jinja.render_template("search_photos.html", **labels))

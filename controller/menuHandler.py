@@ -15,7 +15,7 @@ class MainMenuHandler(webapp2.RequestHandler):
 
             return nickname
 
-        # get users nickname to add on list search
+        # get users nickname to add on search list
         def getUsers():
             us = User.query()
             toret = []
@@ -38,7 +38,6 @@ class MainMenuHandler(webapp2.RequestHandler):
 
             #get user categories to not return duplicates
             user_categories = set(user_atributes.categories)
-            imgs = Image.query(Image.autor == user_id)
 
             # create nickname followers list
             toretFollowers = []
@@ -49,6 +48,14 @@ class MainMenuHandler(webapp2.RequestHandler):
             toretFollow = []
             for x in user_atributes.follow:
                 toretFollow.append(getNickname(x))
+
+            # get following user images
+            imgs = []
+            for nickname in toretFollow:
+                follow_user = User.query(User.nickname == nickname)
+                users_info = follow_user.get()
+                imgs.append(Image.query(Image.autor == users_info.id_user))
+
 
             labels = {
                 "user_logout": users.create_logout_url("/"),

@@ -1,0 +1,24 @@
+{% extends "skeleton.html" %}
+{% block mainContainer %}
+<div class="jumbotron">
+   <div class="container text-center">
+      <div class="gallery-title">
+         <h2>{{category}} photos</h2>
+      </div>
+      <div class="row col-gallery">
+         {% for image in images %}
+         <div >
+            <p>{{ image.title }}</p>
+            <a href="/comment?id={{image.id_image}}">
+               <div class="miniature-image ">
+                  {% if image.image_info %}
+                     <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive">
+                  {% endif %}
+               </div>
+            </a>
+         </div>
+         {% endfor %}
+      </div>
+   </div>
+</div>
+{% endblock %}

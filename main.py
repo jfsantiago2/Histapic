@@ -12,6 +12,7 @@ from controller.deleteHandler import DeleteHandler
 from controller.uploadHandler import UploadHandler
 from controller.followHandler import FollowHandler,UnfollowHandler
 from controller.commentsHandler import CommentHandler,LikesHandler,UnlikesHandler
+from controller.myphotosHandler import MyphotosHandler
 from controller.errorHandler import ErrorHandler
 
 class MainHandler(webapp2.RequestHandler):
@@ -57,5 +58,6 @@ app = webapp2.WSGIApplication([
     ("/unlike", UnlikesHandler),
     ("/deletePic", DeleteHandler),
     ("/category", CategoryHandler),
+    ("/myphotos", MyphotosHandler),
     ("/error", ErrorHandler),
     ], debug=True)

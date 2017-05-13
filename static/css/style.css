@@ -78,6 +78,7 @@
 
 .jumbotron{
     background-color: #fff;
+    margin: 0;
 }
 
 .container{
@@ -129,7 +130,7 @@
 }
 .name{
     font-size: 20px;
-    color: #1b6d85;
+    color: steelblue;
     padding-right: 20px;
 
 }
@@ -197,6 +198,16 @@
 }
 
 /*Gallery*/
+
+.gallery-title{
+    padding-bottom: 25px;
+    color: #1b6d85;
+}
+
+.photo-title h3{
+
+
+}
 
 .miniature-image{
     display: flex;
@@ -495,7 +506,7 @@ color: #777;
 
 .name{
     font-size: 18px;
-    color: #1b6d85;
+    color: steelblue;
     padding-right: 15px;
 }
 

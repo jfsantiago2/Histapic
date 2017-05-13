@@ -103,22 +103,52 @@
       </div>
    </div>
 </div>
-<div class="jumbotron">
-   <div class="container text-center">
-      <div class="row col-gallery">
-         {% for image in images %}
-         <div >
-            <p>{{ image.title }}</p>
-            <a href="/comment?id={{image.id_image}}">
-               <div class="miniature-image ">
-                  {% if image.image_info %}
-                     <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive">
-                  {% endif %}
-               </div>
-            </a>
-         </div>
+<div class="container text-center">
+   {% if current_user %}
+   <div class="gallery-title">
+      <h2>Following users photos</h2>
+   </div>
+   {% else %}
+   <div class="gallery-title">
+      <h2>User photos</h2>
+   </div>
+   {% endif %}
+
+   <div class="row col-gallery">
+      {% if images == None %}
+         Not images availables
+      {% else %}
+         {% if current_user %}
+         {% for imgs in images %}
+            {% for image in imgs %}
+            <div class="photo-title">
+               <h3>{{ image.title }}</h3>
+               <a href="/comment?id={{image.id_image}}">
+                  <div class="miniature-image ">
+                     {% if image.image_info %}
+                        <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive">
+                     {% endif %}
+                  </div>
+               </a>
+            </div>
+            {% endfor %}
          {% endfor %}
-      </div>
+         {% else %}
+            {% for image in images %}
+               <div class="photo-title">
+               <h3>{{ image.title }}</h3>
+               <a href="/comment?id={{image.id_image}}">
+                  <div class="miniature-image ">
+                     {% if image.image_info %}
+                        <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive">
+                     {% endif %}
+                  </div>
+               </a>
+            </div>
+            {% endfor %}
+         {% endif %}
+      {% endif %}
    </div>
 </div>
+
 {% endblock %}
