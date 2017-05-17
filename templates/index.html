@@ -35,51 +35,51 @@
                <div class="statistic">
                   <p>
                      <a data-toggle="modal" data-target="#followers">
-                        Followers: {{ followers|length }}
+                     Followers: {{ followers|length }}
                      </a>
-                     <div class="modal fade" id="followers" role="dialog">
-                        <div class="modal-dialog">
-                           <!-- Modal content-->
-                           <div class="modal-content">
-                              <div class="modal-header">
-                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                 <h4 class="modal-title">Followers</h4>
-                              </div>
-                              <div class="modal-body">
-                                    {% for nick in followers %}
-                                     <a href="/search?user={{nick}}">{{nick}}</a>
-                                    {% endfor %}
-                              </div>
-                              <div class="modal-footer">
-                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                              </div>
+                  <div class="modal fade" id="followers" role="dialog">
+                     <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Followers</h4>
+                           </div>
+                           <div class="modal-body">
+                              {% for nick in followers %}
+                              <a href="/search?user={{nick}}">{{nick}}</a>
+                              {% endfor %}
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                            </div>
                         </div>
                      </div>
+                  </div>
                   </p>
                   <p>
                      <a data-toggle="modal" data-target="#following">
-                        <p>Following: {{ following|length }}</p>
-                     </a>
-                     <div class="modal fade" id="following" role="dialog">
-                        <div class="modal-dialog">
-                           <!-- Modal content-->
-                           <div class="modal-content">
-                              <div class="modal-header">
-                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                 <h4 class="modal-title">Following</h4>
-                              </div>
-                              <div class="modal-body">
-                                    {% for nick in following %}
-                                 <a href="/search?user={{nick}}">{{nick}}</a>
-                                    {% endfor %}
-                              </div>
-                              <div class="modal-footer">
-                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                              </div>
+                  <p>Following: {{ following|length }}</p>
+                  </a>
+                  <div class="modal fade" id="following" role="dialog">
+                     <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Following</h4>
+                           </div>
+                           <div class="modal-body">
+                              {% for nick in following %}
+                              <a href="/search?user={{nick}}">{{nick}}</a>
+                              {% endfor %}
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                            </div>
                         </div>
                      </div>
+                  </div>
                   </p>
                </div>
             </div>
@@ -113,42 +113,40 @@
       <h2>user photos</h2>
    </div>
    {% endif %}
-
    <div class="row col-gallery">
       {% if images == None %}
-         Not images availables
+      Not images availables
       {% else %}
-         {% if current_user %}
-         {% for imgs in images %}
-            {% for image in imgs %}
-            <div class="photo-title">
-               <h3>{{ image.title }}</h3>
-               <a href="/comment?id={{image.id_image}}">
-                  <div class="miniature-image ">
-                     {% if image.image_info %}
-                        <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive">
-                     {% endif %}
-                  </div>
-               </a>
+      {% if current_user %}
+      {% for imgs in images %}
+      {% for image in imgs %}
+      <div class="photo-title">
+         <h3>{{ image.title }}</h3>
+         <a href="/comment?id={{image.id_image}}">
+            <div class="miniature-image ">
+               {% if image.image_info %}
+               <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive">
+               {% endif %}
             </div>
-            {% endfor %}
-         {% endfor %}
-         {% else %}
-            {% for image in images %}
-               <div class="photo-title">
-               <h3>{{ image.title }}</h3>
-               <a href="/comment?id={{image.id_image}}">
-                  <div class="miniature-image ">
-                     {% if image.image_info %}
-                        <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive">
-                     {% endif %}
-                  </div>
-               </a>
+         </a>
+      </div>
+      {% endfor %}
+      {% endfor %}
+      {% else %}
+      {% for image in images %}
+      <div class="photo-title">
+         <h3>{{ image.title }}</h3>
+         <a href="/comment?id={{image.id_image}}">
+            <div class="miniature-image ">
+               {% if image.image_info %}
+               <img src='data:image/png;base64, {{ image.image_info.encode("base64") }}' class="img-responsive">
+               {% endif %}
             </div>
-            {% endfor %}
-         {% endif %}
+         </a>
+      </div>
+      {% endfor %}
+      {% endif %}
       {% endif %}
    </div>
 </div>
-
 {% endblock %}

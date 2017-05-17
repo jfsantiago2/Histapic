@@ -9,21 +9,17 @@ import json
 class CategoryHandler(webapp2.RequestHandler):
 
     def get(self):
-
         # get users nickname to add on list search
         def getUsers():
             us = User.query()
             toret = []
             for u in us:
                 toret.append(u.nickname)
-
             user_list = json.dumps(toret)
-
             return user_list
 
         jinja = jinja2.get_jinja2(app=self.app)
         user = users.get_current_user()
-
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:

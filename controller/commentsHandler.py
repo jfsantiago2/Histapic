@@ -36,14 +36,12 @@ class CommentHandler(webapp2.RequestHandler):
         if user == None:
             self.redirect(users.create_logout_url("/"))
         else:
-
             id_image = self.request.get('id')
 
             if id_image == "":
                 self.redirect("/error?msg=Image id mandatory&handler=/main")
                 return
             else:
-
                 image_info = Image.query(Image.id_image == id_image)
                 if image_info.count() == 0:
                     self.redirect("/error?msg=Image does not exist&handler=/main")

@@ -14,3 +14,8 @@ indexes:
   properties:
   - name: image
   - name: date
+
+- kind: Image
+  properties:
+  - name: autor
+  - name: date
