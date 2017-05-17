@@ -54,7 +54,8 @@ class MainMenuHandler(webapp2.RequestHandler):
             for nickname in toretFollow:
                 follow_user = User.query(User.nickname == nickname)
                 users_info = follow_user.get()
-                imgs.append(Image.query(Image.autor == users_info.id_user).order(Image.date))
+                imgs.append(Image.query(Image.autor == users_info.id_user))
+
 
             labels = {
                 "user_logout": users.create_logout_url("/"),

@@ -17,7 +17,9 @@ class ProfileHandler(webapp2.RequestHandler):
             toret = []
             for u in us:
                 toret.append(u.nickname)
+
             user_list = json.dumps(toret)
+
             return user_list
 
         jinja = jinja2.get_jinja2(app=self.app)
@@ -81,9 +83,14 @@ class ProfileHandler(webapp2.RequestHandler):
                 else:
                     image = None
 
+
             if (checkNickname(nickname,id)):
                 self.redirect("/error?msg=User nickname already exist&handler=/profile")
                 return
+
+            print(image)
+
+
 
             current_user.nickname = self.request.get('nick_name')
             current_user.description = self.request.get('description')

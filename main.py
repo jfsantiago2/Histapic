@@ -21,7 +21,6 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         jinja = jinja2.get_jinja2(app=self.app)
 
-        # check if the email is already registered
         def checkEmail(user_name):
             stored_user = User.query(User.email == user_name)
             toret = True
@@ -37,7 +36,6 @@ class MainHandler(webapp2.RequestHandler):
         elif(checkEmail(user.email())):
             self.redirect("/main")
         else:
-            # create user if not exists
             user = User(id_user=user.user_id(),
                         nickname=user.nickname(),
                         email =user.email())
